@@ -110,7 +110,7 @@ router.post(URL_LOGOUT, async function (request, response, next) {
     delete request.session.username;
     // Respond to http request
     response.status(200);
-    response.end();
+    response.json({'username': null});
 });
 
 

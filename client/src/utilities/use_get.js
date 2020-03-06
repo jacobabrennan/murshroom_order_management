@@ -18,7 +18,7 @@ export default function useGet(url, options) {
     });
     useEffect(function () {
         function doGet() {
-            fetch(url, options)
+            fetch(url, options.httpOptions)
                 .then(async function (httpResponse) {
                     if(!httpResponse.ok) { throw httpResponse.status;}
                     const responseData = await httpResponse.json();
@@ -28,6 +28,9 @@ export default function useGet(url, options) {
                         data: responseData,
                         refetch: doGet,
                     });
+                    if(options.onSuccess) {
+                        options.onSuccess(responseData);
+                    }
                 })
                 .catch(function (error) {
                     setResponse({

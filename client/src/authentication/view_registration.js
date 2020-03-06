@@ -11,11 +11,7 @@ import { URL_AUTH_REGISTER } from './index.js';
 //-- React Component -----------------------------
 export default function ViewRegister({ onLogin }) {
     // Prepare API http request
-    const [, triggerPost] = usePost(URL_AUTH_REGISTER, {
-        method: 'post',
-        credentials: 'same-origin',
-        headers: {'Content-Type': 'application/json'},
-    });
+    const [, triggerPost] = usePost(URL_AUTH_REGISTER);
     // Submit interaction handler
     async function handleSubmit(eventSubmit) {
         eventSubmit.preventDefault();

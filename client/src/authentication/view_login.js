@@ -10,14 +10,8 @@ import { URL_AUTH_LOGIN } from './index.js';
 
 //-- Log In Form ---------------------------------
 export default function ViewLogin({ onLogin }) {
-    // Prepare API http request
-    let requestOptions = {
-        method: 'post',
-        credentials: 'same-origin',
-        headers: {'Content-Type': 'application/json'},
-    };
     // Attempt to login with server
-    const [response, triggerPost] = usePost(URL_AUTH_LOGIN, requestOptions);
+    const [response, triggerPost] = usePost(URL_AUTH_LOGIN);
     // Submit interaction handler
     async function handleSubmit(eventSubmit) {
         eventSubmit.preventDefault();

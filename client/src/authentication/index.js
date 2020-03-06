@@ -17,9 +17,9 @@ It accepts one prop, the standard React prop "children".
 // NPM Modules
 import React, {
     createContext,
+    useState,
 } from 'react';
 import {
-    useHistory,
     Switch,
     Route,
     Redirect,
@@ -55,9 +55,11 @@ function Loading() {
 //-- React Component -----------------------------
 export function Authenticate({ children }) {
     // Query server for authentication data
-    const history = useHistory();
-    const response = useGet(URL_AUTH_LOGIN);
-    const [, triggerLogout] = usePost(URL_AUTH_LOGOUT, {});
+    const [userData, setUserData] = useState({username: null});
+    const response = useGet(URL_AUTH_LOGIN, {
+        onSuccess: function(data) { setUserData(data);},
+    });
+    const [, triggerLogout] = usePost(URL_AUTH_LOGOUT);
     //
     if(response.error) {
         return `Error: ${response.error}`;
@@ -68,12 +70,17 @@ export function Authenticate({ children }) {
     }
     // Interpret response data
     // If authenticated, pass authentication data to wrapped components
-    if(response.data.username) {
+    if(userData.username) {
         const authData = {
-            username: response.data.username,
+            username: userData.username,
             onLogout: async function () {
-                await triggerLogout();
-                history.push(URL_AUTH_LOGIN);
+                try {
+                    await triggerLogout();
+                    setUserData({username: null});
+                }
+                catch(error) {
+                    console.log(error)
+                }
             },
         };
         return (

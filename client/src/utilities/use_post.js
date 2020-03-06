@@ -20,7 +20,12 @@ export default function usePost(url, options) {
             error: false,
             data: null,
         });
-        const requestOptions = {body: JSON.stringify(body)};
+        const requestOptions = {
+            method: 'post',
+            credentials: 'same-origin',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(body),
+        };
         if(options) { Object.assign(requestOptions, options);}
         let responseData;
         try {
