@@ -1,15 +1,15 @@
 
 
-/*== Authentication Data Access ================================================
-
-This module provides data access for registration and login. In the future it
-will also provide a means to change a user's password.
-
-*/
+//== Authentication Data Access ================================================
 
 //-- Dependencies --------------------------------
 import bcrypt from 'bcryptjs';
 import database from '../database/index.js';
+
+//------------------------------------------------
+const TABLE_USER = 'user';
+const FIELD_USERNAME = 'username';
+const FIELD_PASSWORD = 'password';
 
 //-- Project Constants ---------------------------
 const SALT_ROUNDS = 10;
@@ -33,26 +33,22 @@ export function userNameCanonical(nameRaw) {
 export async function authRegister(userNameRequested, passwordRaw, emailRaw) {
     // Cancel if password is bad (absent)
     if(!passwordRaw) { throw ERROR_PASSWORD_BAD;}
-    // Generate ID from requested name; Cancel on bad names (ERROR_USERNAME_BAD)
-    const userId = userNameCanonical(userNameRequested);
+    // Generate name from requested name; Cancel on bad names (ERROR_USERNAME_BAD)
+    const username = userNameCanonical(userNameRequested);
     // Cancel if the name is already taken
-    const userCurrent = await database('users')
-        .select('userId')
-        .where({'userId': userId})
+    const userCurrent = await database(TABLE_USER)
+        .select(FIELD_USERNAME)
+        .where({[FIELD_USERNAME]: username})
         .first();
     if(userCurrent) { throw ERROR_USERNAME_COLLISION;}
     // Create the user in the database
-    await database('users').insert({
-        'userId': userId,
-    });
     // Store password (hashed)
-    const hash = await bcrypt.hash(passwordRaw, SALT_ROUNDS);
-    await database('credentials').insert({
-        'userId': userId,
-        'hash': hash,
+    await database(TABLE_USER).insert({
+        [FIELD_USERNAME]: username,
+        [FIELD_PASSWORD]: await bcrypt.hash(passwordRaw, SALT_ROUNDS),
     });
-    // Return the new user's ID
-    return userId;
+    // Return the new user's name
+    return username;
 }
 
 //-- Change Password -----------------------------
@@ -70,9 +66,9 @@ export async function authRegister(userNameRequested, passwordRaw, emailRaw) {
 //-- Login (check password) ----------------------
 export async function credentialValidate(userNameRaw, passwordRaw) {
     // Calculate userId for requested name, cancel on bad usernames
-    let userId;
+    let username;
     try {
-        userId = userNameCanonical(userNameRaw);
+        username = userNameCanonical(userNameRaw);
     }
     catch(error) {
         if(error === ERROR_USERNAME_BAD) {
@@ -80,14 +76,14 @@ export async function credentialValidate(userNameRaw, passwordRaw) {
         }
     }
     // Retrieve password hash from database, cancel if non-exists
-    const userCredentials = await database('credentials')
-        .select('userId', 'hash')
-        .where({'userId': userId})
+    const userCredentials = await database(TABLE_USER)
+        .select(FIELD_USERNAME, FIELD_PASSWORD)
+        .where({[FIELD_USERNAME]: username})
         .first();
-    const hash = userCredentials? userCredentials.hash : '';
+    const hash = userCredentials? userCredentials[FIELD_PASSWORD] : '';
     // Compare password to hash, cancel if they don't match
     const result = await bcrypt.compare(passwordRaw, hash);
     if(!result) { return false;}
     // On validation, return actual userId
-    return userId;
+    return userCredentials[FIELD_USERNAME];
 }

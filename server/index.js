@@ -5,6 +5,7 @@
 //-- Dependencies --------------------------------
 import express from 'express';
 import expressSession from 'express-session';
+import bodyParser from 'body-parser';
 import sessionSecret from './secure/session_secret.js';
 import authentication from './authentication/index.js';
 
@@ -17,6 +18,7 @@ const URL_STATIC = '/rsc';
 
 //-- Create and Configure Server------------------
 const server = express();
+server.use(bodyParser.json());
 server.use(expressSession({
     secret: sessionSecret,
     resave: false,

@@ -10,13 +10,13 @@ const CONFIG = {
     "client": "sqlite3",
     "useNullAsDefault": true,
     "connection": {
-        "filename": "./dev.sqlite3"
+        "filename": "./database/dev.sqlite3"
     },
     "migrations": {
-        "directory": "./migrations"
+        "directory": "./database/migrations"
     },
     "seeds": {
-        "directory": "./seeds"
+        "directory": "./database/seeds"
     }
 }
 

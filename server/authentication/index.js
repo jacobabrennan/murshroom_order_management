@@ -33,6 +33,12 @@ export default router;
 
 //== Route Handlers ============================================================
 
+//-- Check Credentials ---------------------------
+router.get(URL_LOGIN, async function (request, response, next) {
+    const credentials = {username: request.session.username};
+    response.json(credentials);
+});
+
 //-- Registration --------------------------------
 router.post(URL_REGISTRATION, async function (request, response, next) {
     // Retrieve user submitted credentials
@@ -40,9 +46,9 @@ router.post(URL_REGISTRATION, async function (request, response, next) {
     let passwordRaw = request.body.password;
     let emailRaw = request.body.email;
     // Attempt to register a new user, using credentials
-    let userId;
+    let username;
     try {
-        userId = await dataAuth.authRegister(
+        username = await dataAuth.authRegister(
             userNameRequested,
             passwordRaw,
             emailRaw,
@@ -54,28 +60,28 @@ router.post(URL_REGISTRATION, async function (request, response, next) {
         return;
     }
     // Generate session
-    request.session.userId = userId;
-    // Respond with userId
+    request.session.username = username;
+    // Respond with username
     const responseData = {
-        userId: userId,
+        username: username,
     };
     response.json(responseData);
 });
 
 //-- Login ---------------------------------------
 router.post(URL_LOGIN, async function (request, response, next) {
-    let userId;
+    let username;
     // Retrieve user submitted credentials
     let userNameRaw = request.body.userName;
     let passwordRaw = request.body.password;
     // Cancel if already logged in
     try {
-        if(request.session.userId) {
+        if(request.session.username) {
             throw ERROR_AUTH_COLLISION;
         }
     // Attempt to login
-        userId = await dataAuth.credentialValidate(userNameRaw, passwordRaw);
-        if(!userId) {
+        username = await dataAuth.credentialValidate(userNameRaw, passwordRaw);
+        if(!username) {
             throw ERROR_AUTH_INVALID;
         }
     }
@@ -85,10 +91,10 @@ router.post(URL_LOGIN, async function (request, response, next) {
         return;
     }
     // Generate session
-    request.session.userId = userId;
-    // Respond with userId
+    request.session.username = username;
+    // Respond with username
     const responseData = {
-        userId: userId,
+        username: username,
     };
     response.json(responseData);
 });
@@ -96,12 +102,12 @@ router.post(URL_LOGIN, async function (request, response, next) {
 //-- Logout --------------------------------------
 router.post(URL_LOGOUT, async function (request, response, next) {
     // Cancel if not currently logged in
-    if(!request.session.userId) {
+    if(!request.session.username) {
         next(ERROR_AUTH_NOLOGIN);
         return;
     }
     // Destroy session
-    delete request.session.userId;
+    delete request.session.username;
     // Respond to http request
     response.status(200);
     response.end();
