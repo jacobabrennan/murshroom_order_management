@@ -9,22 +9,33 @@ import useGet from '../utilities/use_get.js';
 import ViewNew from './new';
 import ViewAll from './all';
 import './style.css';
+import ViewEdit from './edit.js';
 
 //-- Project Constants ---------------------------
 const URL_SPECIES_ALL = '/data/species/all';
 
 //-- Species Context -----------------------------
 const speciesContext = createContext({
-    species: [],
+    list: [],
+    refresh() {},
 });
 export default speciesContext;
 
 //-- Species Data Provider -----------------------
 export function SpeciesData({ children }) {
     const response = useGet(URL_SPECIES_ALL);
-    let speciesData = [];
+    let speciesData = {
+        list: [],
+        refresh() {},
+    };
     if(response.data) {
-        speciesData = response.data.speciesAll;
+        speciesData = {
+            list: response.data.speciesAll,
+            refresh: () => {
+                console.log('refreshing')
+                response.refetch()
+            }
+        }
     }
     return (<speciesContext.Provider
         value={speciesData}
@@ -38,6 +49,9 @@ export function ViewSpecies() {
         <Switch>
             <Route path="/species/new" exact>
                 <ViewNew />
+            </Route>
+            <Route path="/species/edit/:id" exit>
+                <ViewEdit />
             </Route>
             <Route path="/species" exact>
                 <ViewAll />

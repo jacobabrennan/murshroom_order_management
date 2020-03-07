@@ -4,19 +4,20 @@
 
 //-- Dependencies --------------------------------
 import React, { useRef, useContext } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import usePost from '../utilities/use_post';
 import speciesContext from '.';
 
 //-- Project Constants ---------------------------
-const URL_SPECIES_NEW = '/data/species';
+const URL_SPECIES_EDIT = '/data/species';
 
 //------------------------------------------------
-export default function ViewNew() {
-    const speciesData = useContext(speciesContext);
+export default function ViewEdit() {
+    let speciesData = useContext(speciesContext);
     const formRef = useRef();
     const history = useHistory();
-    const [, triggerPost] = usePost(URL_SPECIES_NEW);
+    const {id} = useParams();
+    const [, triggerPost] = usePost(`${URL_SPECIES_EDIT}/${id}`);
     //
     async function submitHandler(eventSubmit) {
         //
@@ -46,32 +47,39 @@ export default function ViewNew() {
         history.push('/species');
     }
     //
+    const selection = speciesData.list.find(
+        function (species) { return species.id === parseInt(id);}
+    );
+    if(!selection) {
+        history.push('/species');
+        return '';
+    }
     return (
         <form ref={formRef} className="new-species" onSubmit={submitHandler}>
-            <h1>New Species</h1>
+            <h1>Edit Species: {id}</h1>
             <label>
                 <span>Code</span>
-                <input name="code" type="text" />
+                <input name="code" type="text" defaultValue={selection.code} />
             </label>
             <label>
                 <span>Species</span>
-                <input name="species" type="text" />
+                <input name="species" type="text" defaultValue={selection.species} />
             </label>
             <label>
                 <span>Strain</span>
-                <input name="strain" type="text" />
+                <input name="strain" type="text" defaultValue={selection.strain} />
             </label>
             <label>
                 <span>Substrate Format</span>
-                <input name="substrate format" type="number" />
+                <input name="substrate format" type="number" defaultValue={selection.substrateFormat} />
             </label>
             <label>
                 <span>Amount</span>
-                <input name="amount" type="number" />
+                <input name="amount" type="number" defaultValue={selection.amount} />
             </label>
             <label>
                 <span>Incubation Time</span>
-                <input name="incubation time" type="number" />
+                <input name="incubation time" type="number" defaultValue={selection.incubationTime} />
             </label>
             <div className="new-species__actions">
                 <button className="button" type="submit" children="Submit" />
