@@ -29,6 +29,7 @@ export default function usePost(url, options) {
         if(options) { Object.assign(requestOptions, options);}
         let responseData;
         try {
+            console.log('Fetching', url)
             const httpResponse = await fetch(url, requestOptions);
             if(!httpResponse.ok) { throw httpResponse.status;}
             responseData = await httpResponse.json();

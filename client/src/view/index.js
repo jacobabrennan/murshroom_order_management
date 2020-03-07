@@ -9,41 +9,38 @@ import {
     Route,
     Redirect,
 } from 'react-router-dom';
-
-// import ViewUser from '../views/user/index.js';
-// import ViewPost from '../views/post/index.js';
-// import ViewHome from '../views/home/index.js';
-// import ViewSettings from '../views/settings/index.js';
-// import ViewNotFound from '../views/not_found/index.js';
 import HeaderBar from '../components/header_bar/index.js';
-// import HeaderBar from '../components/header_bar/index.js';
+// import ViewOrderNew from './order_new.js';
+import {
+    SpeciesData,
+    ViewSpecies,
+} from '../species/index.js';
 import './client.css';
+import './button.css';
 
 //-- React Component -----------------------------
 export default function Client() {
     return (
         <div className="client">
             <HeaderBar />
-            <Switch>
-                <Route path="/auth">
-                    <Redirect to="/" />
-                </Route>
-                {/* <Route path="/user/:userId">
-                    <ViewUser />
-                </Route>
-                <Route path="/post/:postId">
-                    <ViewPost />
-                </Route>
-                <Route exact path="/settings">
-                    <ViewSettings />
-                </Route>
-                <Route exact path="/">
-                    <ViewHome />
-                </Route> */}
-                <Route>
-                    {/* <ViewNotFound /> */}
-                </Route>
-            </Switch>
+            <div className="page">
+                <SpeciesData>
+                    <Switch>
+                        <Route path="/auth">
+                            <Redirect to="/" />
+                        </Route>
+                        {/* <Route path="/order/new" exact>
+                            <ViewOrderNew />
+                        </Route> */}
+                        <Route path="/species">
+                            <ViewSpecies />
+                        </Route>
+                        <Route>
+                            {/* <ViewNotFound /> */}
+                        </Route>
+                    </Switch>
+                </SpeciesData>
+            </div>
         </div>
     );
 }

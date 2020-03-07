@@ -8,3 +8,6 @@
     border-left: 2px solid var(--color-structure);
     border-right: 2px solid var(--color-structure);
 }
+.page {
+    padding: 0px var(--spacing-structure);
+}

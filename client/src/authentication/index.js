@@ -14,23 +14,20 @@ It accepts one prop, the standard React prop "children".
 */
 
 //-- Dependencies --------------------------------
-// NPM Modules
 import React, {
     createContext,
-    useState,
 } from 'react';
 import {
     Switch,
     Route,
     Redirect,
 } from 'react-router-dom';
-// React Components
+import usePost from '../utilities/use_post.js';
+import useGet from '../utilities/use_get';
 import ViewRegister from './view_registration.js';
 import ViewLogin from './view_login.js';
-// Styles
-import useGet from '../utilities/use_get';
+import Loading from '../components/loading/index.js';
 import './index.css';
-import usePost from '../utilities/use_post.js';
 
 //-- Project Constants ---------------------------
 export const URL_AUTH_LOGIN = '/auth/login';
@@ -43,22 +40,10 @@ const authenticationContext = createContext({
 });
 export default authenticationContext;
 
-
-
-//------------------------------------------------
-function Loading() {
-    return 'Loading';
-}
-
-
-
 //-- React Component -----------------------------
 export function Authenticate({ children }) {
     // Query server for authentication data
-    const [userData, setUserData] = useState({username: null});
-    const response = useGet(URL_AUTH_LOGIN, {
-        onSuccess: function(data) { setUserData(data);},
-    });
+    const response = useGet(URL_AUTH_LOGIN);
     const [, triggerLogout] = usePost(URL_AUTH_LOGOUT);
     //
     if(response.error) {
@@ -70,13 +55,13 @@ export function Authenticate({ children }) {
     }
     // Interpret response data
     // If authenticated, pass authentication data to wrapped components
-    if(userData.username) {
+    if(response.data && response.data.username) {
         const authData = {
-            username: userData.username,
+            username: response.data.username,
             onLogout: async function () {
                 try {
                     await triggerLogout();
-                    setUserData({username: null});
+                    response.refetch();
                 }
                 catch(error) {
                     console.log(error)

@@ -9,7 +9,7 @@ import {
 } from 'react';
 
 //------------------------------------------------
-export default function useGet(url, options) {
+export default function useGet(url) {
     const [response, setResponse] = useState({
         loading: true,
         error: false,
@@ -18,7 +18,8 @@ export default function useGet(url, options) {
     });
     useEffect(function () {
         function doGet() {
-            fetch(url, options.httpOptions)
+            console.log('Fetching', url)
+            fetch(url)
                 .then(async function (httpResponse) {
                     if(!httpResponse.ok) { throw httpResponse.status;}
                     const responseData = await httpResponse.json();
@@ -28,9 +29,6 @@ export default function useGet(url, options) {
                         data: responseData,
                         refetch: doGet,
                     });
-                    if(options.onSuccess) {
-                        options.onSuccess(responseData);
-                    }
                 })
                 .catch(function (error) {
                     setResponse({
@@ -42,6 +40,6 @@ export default function useGet(url, options) {
                 });
         }
         doGet();
-    }, [url, options])
+    }, [url])
     return response;
 }

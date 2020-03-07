@@ -18,7 +18,8 @@ const TABLE_USER = 'user';
 //
 const FIELD_ID = 'id';
 const FIELD_CODE = 'code';
-const FIELD_SPECIES = 'species'; // species name / spawn source
+const FIELD_SPECIES = 'species'; // species name
+const FIELD_STRAIN = 'strain'; // Spawn Source
 const FIELD_SUBSTRATE_FORMAT = 'substrateFormat' // weight of block
 const FIELD_AMOUNT = 'amount'; // number of blocks per order count
 const FIELD_INCUBATION_TIME = 'incubationTime'; // in days
@@ -42,6 +43,7 @@ exports.up = function(knex) {
             table.increments(FIELD_ID);
             table.string(FIELD_CODE).notNullable().unique();
             table.string(FIELD_SPECIES).notNullable().unique();
+            table.string(FIELD_STRAIN).notNullable();
             table.integer(FIELD_SUBSTRATE_FORMAT).notNullable();
             table.integer(FIELD_AMOUNT).notNullable();
             table.integer(FIELD_INCUBATION_TIME).notNullable();

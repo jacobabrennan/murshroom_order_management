@@ -8,6 +8,7 @@ import expressSession from 'express-session';
 import bodyParser from 'body-parser';
 import sessionSecret from './secure/session_secret.js';
 import authentication from './authentication/index.js';
+import species from './species/index.js';
 
 //-- Project Constants ---------------------------
 const PORT = 7231;
@@ -15,6 +16,7 @@ const SERVER_LISTEN_MESSAGE = `Server started on port ${PORT}`;
 const PATH_STATIC = 'public';
 const URL_AUTHENTICATION = '/auth';
 const URL_STATIC = '/rsc';
+const URL_DATA_SPECIES = '/data/species';
 
 //-- Create and Configure Server------------------
 const server = express();
@@ -28,6 +30,7 @@ server.use(expressSession({
 //-- Route Requests ------------------------------
 server.use(URL_STATIC, express.static(PATH_STATIC));
 server.use(URL_AUTHENTICATION, authentication);
+server.use(URL_DATA_SPECIES, species);
 
 //-- Open Server ---------------------------------
 server.listen(PORT, function () {
