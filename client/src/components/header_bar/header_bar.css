@@ -22,10 +22,10 @@
     height: 3rem;
     width: 10rem;
 }
-.headerbar a:link, .headerbar a:visited {
+/* .headerbar a:link, .headerbar a:visited {
     color: var(--color-copy);
     font-weight: bold;
 }
 .headerbar a:link:hover, .headerbar a:link:focus {
     text-decoration: underline;
-}
+} */

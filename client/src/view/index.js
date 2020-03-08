@@ -16,6 +16,7 @@ import {
     ViewSpecies,
 } from '../species/index.js';
 import ViewCustomer from '../customer/index.js';
+import ViewOrder from '../order/index.js';
 import './client.css';
 import './button.css';
 
@@ -30,9 +31,9 @@ export default function Client() {
                         <Route path="/auth">
                             <Redirect to="/" />
                         </Route>
-                        {/* <Route path="/order/new" exact>
-                            <ViewOrderNew />
-                        </Route> */}
+                        <Route path="/order">
+                            <ViewOrder />
+                        </Route>
                         <Route path="/species">
                             <ViewSpecies />
                         </Route>

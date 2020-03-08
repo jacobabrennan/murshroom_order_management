@@ -30,6 +30,11 @@ export default function HeaderBar() {
             />
             <div className="headerbar_etc">
                 <Link
+                    children="Orders"
+                    className="button"
+                    to="/order"
+                />  
+                <Link
                     children="Species"
                     className="button"
                     to="/species"

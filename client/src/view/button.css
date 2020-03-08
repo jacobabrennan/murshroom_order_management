@@ -12,8 +12,11 @@
     justify-content: center;
     align-items: center;
 }
-.button:hover, .button:focus {
+.button:hover {
     background: var(--color-action);
+}
+.button:focus {
+    outline: 1px dotted black;
 }
 .button:active {
     transform: translate(0, 2px);
@@ -29,7 +32,7 @@
     display: inline;
 }
 
-.button.danger:hover, .button.danger:focus {
+.button.danger:hover {
     background: var(--color-danger);
 }
 .button.secondary, .button.secondary {
@@ -37,7 +40,7 @@
     color: var(--color-subdued);
     background: var(--color-field);
 }
-.button.secondary:hover, .button.secondary:focus {
+.button.secondary:hover {
     border: none;
     color: var(--color-field);
     background: var(--color-action);

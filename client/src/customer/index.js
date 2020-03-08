@@ -8,9 +8,9 @@ import {
     Switch,
     Route,
 } from 'react-router-dom';
-import ViewCustomerFinder from './finder';
-import ViewNew from './new';
-import ViewEdit from './edit';
+import ViewCustomerFinder from './finder.js';
+import ViewNew from './new.js';
+import ViewEdit from './edit.js';
 
 //------------------------------------------------
 export default function ViewCustomer() {

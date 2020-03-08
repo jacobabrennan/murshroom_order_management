@@ -3,69 +3,27 @@
 //==============================================================================
 
 //-- Dependencies --------------------------------
-import React, { useRef, useState } from 'react';
+import React from 'react';
 import {
-    Link,
+    Link, useHistory,
 } from 'react-router-dom';
+import CustomerFinder from '../components/customer_finder/index.js';
 
 //-- Project Constants ---------------------------
-const URL_CUSTOMER_SEARCH = '/data/customer/search';
+const URL_CUSTOMER_NEW = '/data/customer/new';
+const URL_CUSTOMER_EDIT = '/customer/edit';
 
 //------------------------------------------------
 export default function ViewCustomerFinder() {
-    let formRef = useRef();
-    let [searchResults, setSearchResults] = useState([]);
-    //
-    async function handleSubmit(eventSubmit) {
-        //
-        eventSubmit.preventDefault();
-        const recordForm = formRef.current;
-        for(const element of recordForm.elements) {
-            element.disabled = true;
-        }
-        //
-        const query = recordForm.elements['query'].value;
-        const fetchUrl = `${URL_CUSTOMER_SEARCH}?query=${query}`;
-        //
-        const response = await fetch(fetchUrl);
-        const data = await response.json();
-        setSearchResults(data);
-        //
-        recordForm.reset();
-        for(const element of recordForm.elements) {
-            element.disabled = false;
-        }
+    const history = useHistory();
+    function handleSelect(customer) {
+        const customerUrl = `${URL_CUSTOMER_EDIT}/${customer.id}`;
+        history.push(customerUrl);
     }
-    //
     return (
         <React.Fragment>
-            <form ref={formRef} onSubmit={handleSubmit}>
-                <Link className="button" to="/customer/new" children="+ Customer" />
-                <label>
-                    <span>Customer Number or Name</span>
-                    <input name="query" type="text" />
-                    <button className="button small" type="submit" children="Find" />
-                </label>
-            </form>
-            <div>
-                {searchResults.map(
-                    customer => <Customer key={customer.id} customer={customer} />
-                )}
-            </div>
+            <Link className="button" to={URL_CUSTOMER_NEW} children="+ Customer" />
+            <CustomerFinder onSelect={handleSelect} />
         </React.Fragment>
-    );
-}
-
-//------------------------------------------------
-function Customer({customer}) {
-    const customerUrl = `/customer/edit/${customer.id}`;
-    return (
-        <Link to={customerUrl}>
-            {customer.name}
-            <br />
-            {customer.location}
-            <br />
-            <br />
-        </Link>
     );
 }
