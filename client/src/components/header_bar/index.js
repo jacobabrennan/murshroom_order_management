@@ -29,10 +29,16 @@ export default function HeaderBar() {
                 children="Home"
             />
             <div className="headerbar_etc">
-                {/* <Link
-                    to={urlUserProfile(authContext.userData.userId)}
-                    children="Profile"
-                /> */}
+                <Link
+                    children="Species"
+                    className="button"
+                    to="/species"
+                />  
+                <Link
+                    children="Customers"
+                    className="button"
+                    to="/customer"
+                />  
                 <button
                     children="Log Out"
                     className="button secondary"

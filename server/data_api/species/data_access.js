@@ -3,7 +3,7 @@
 //== Species Data Access =======================================================
 
 //-- Dependencies --------------------------------
-import database from '../database/index.js';
+import database from '../../database/index.js';
 
 //------------------------------------------------
 const TABLE_SPECIES = 'species';

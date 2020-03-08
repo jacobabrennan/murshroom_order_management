@@ -22,7 +22,9 @@ export default function useGet(url) {
             fetch(url)
                 .then(async function (httpResponse) {
                     if(!httpResponse.ok) { throw httpResponse.status;}
-                    const responseData = await httpResponse.json();
+                    let responseData = null;
+                    try { responseData = await httpResponse.json();}
+                    catch { /* default to null */}
                     setResponse({
                         loading: false,
                         error: false,

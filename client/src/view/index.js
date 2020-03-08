@@ -15,6 +15,7 @@ import {
     SpeciesData,
     ViewSpecies,
 } from '../species/index.js';
+import ViewCustomer from '../customer/index.js';
 import './client.css';
 import './button.css';
 
@@ -34,6 +35,9 @@ export default function Client() {
                         </Route> */}
                         <Route path="/species">
                             <ViewSpecies />
+                        </Route>
+                        <Route path="/customer">
+                            <ViewCustomer />
                         </Route>
                         <Route>
                             {/* <ViewNotFound /> */}

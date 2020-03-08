@@ -13,15 +13,34 @@ import { Link } from 'react-router-dom';
 export default function ViewAll() {
     let { list } = useContext(speciesContext);
     return (
-        <div>
-            {list.map(species => (
-                <Link
-                    to={`/species/edit/${species.id}`}
-                    key={species.code}
-                >
-                    {species.species}/{species.substrateFormat}
-                </Link>
-            ))}
-        </div>
+        <React.Fragment>
+            <Link className="button" to="/species/new" children="+ Species" />
+            <div className="species-list">
+                {list.map(
+                    species => <Species key={species.code} species={species} />
+                )}
+            </div>
+        </React.Fragment>
+    );
+}
+
+//------------------------------------------------
+function Species({species}) {
+    return (
+        <Link to={`/species/edit/${species.id}`}>
+            {species.code}
+            <br />
+            {species.species}
+            <br />
+            {species.strain}
+            <br />
+            {species.substrateFormat}
+            <br />
+            {species.amount}
+            <br />
+            {species.incubationTime}
+            <br />
+            <br />
+        </Link>
     );
 }

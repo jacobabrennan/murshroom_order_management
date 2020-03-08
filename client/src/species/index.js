@@ -8,8 +8,9 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import useGet from '../utilities/use_get.js';
 import ViewNew from './new';
 import ViewAll from './all';
-import './style.css';
 import ViewEdit from './edit.js';
+import './style.css';
+import Loading from '../components/loading/index.js';
 
 //-- Project Constants ---------------------------
 const URL_SPECIES_ALL = '/data/species/all';
@@ -37,6 +38,11 @@ export function SpeciesData({ children }) {
             }
         }
     }
+    //
+    if(response.loading) {
+        return (<Loading />);
+    }
+    //
     return (<speciesContext.Provider
         value={speciesData}
         children={children}

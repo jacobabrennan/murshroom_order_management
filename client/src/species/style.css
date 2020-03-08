@@ -1,4 +1,9 @@
 
+.species-list {
+    display: flex;
+    flex-direction: column;
+}
+
 .new-species {
     display: flex;
     flex-direction: column;
