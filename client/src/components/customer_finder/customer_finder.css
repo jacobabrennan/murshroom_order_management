@@ -1,0 +1,23 @@
+
+.customer-finder {
+    cursor: pointer;
+    font-size: 2rem;
+}
+/* .customer-finder__prompt {
+} */
+.customer-finder__customer {
+    margin-top: var(--spacing-structure);
+    padding: var(--spacing-structure);
+    border: var(--border-structure);
+    border-radius: var(--radius-structure);
+    font-size: 2rem;
+}
+.customer-finder__customer > span:first-child::after {
+    content: '  -  ';
+    color: var(--color-subdued);
+    /* margin-left: 2rem; */
+}
+.customer-finder__customer:hover {
+    border-color: var(--color-action);
+    background-color: var(--color-field);
+}

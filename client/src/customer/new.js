@@ -8,13 +8,13 @@ import { Link, useHistory } from 'react-router-dom';
 import usePost from '../utilities/use_post';
 
 //-- Project Constants ---------------------------
-const URL_CUSTOMER_NEW = '/data/customer';
+const URL_CUSTOMER_SUBMIT = '/data/customer';
 
 //------------------------------------------------
 export default function ViewNew() {
     const formRef = useRef();
     const history = useHistory();
-    const [, triggerPost] = usePost(URL_CUSTOMER_NEW);
+    const [, triggerPost] = usePost(URL_CUSTOMER_SUBMIT);
     //
     async function submitHandler(eventSubmit) {
         //
@@ -50,9 +50,9 @@ export default function ViewNew() {
                 <span>Location</span>
                 <input name="location" type="text" />
             </label>
-            <div className="new-species__actions">
+            <div className="button-bar">
                 <button className="button" type="submit" children="Submit" />
-                <Link className="button secondary" to="/customer" children="Cancel" />
+                <Link className="button danger" to="/customer" children="Cancel" />
             </div>
         </form>
     );

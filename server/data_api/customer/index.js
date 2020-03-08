@@ -25,10 +25,15 @@ export default router;
 router.get(URL_CUSTOMER_SEARCH, async function (request, response, next) {
     const query = request.query.query;
     //
-    const customerId = Number.isInteger(parseInt(query));
-    const customer = await customerGet(customerId);
-    if(customer) {
-        response.json([customer]);
+    const customerId = parseInt(query);
+    if(Number.isInteger(customerId)) {
+        const customer = await customerGet(customerId);
+        if(!customer) {
+            response.json([]);
+        }
+        else {
+            response.json([customer]);
+        }
         return;
     }
     //

@@ -22,34 +22,27 @@ export default function HeaderBar() {
     const authContext = useContext(authenticationContext);
     // Render JSX: Currently renders home & profile links, and a logout button.
     return (
-        <header className="headerbar">
+        <nav className="headerbar">
             <Link
-                className="headerbar_home"
-                to="/"
-                children="Home"
+                children="Orders"
+                className="button"
+                to="/order"
+            />  
+            <Link
+                children="Species"
+                className="button"
+                to="/species"
+            />  
+            <Link
+                children="Customers"
+                className="button"
+                to="/customer"
+            />  
+            <button
+                children="Log Out"
+                className="button danger"
+                onClick={authContext.onLogout}
             />
-            <div className="headerbar_etc">
-                <Link
-                    children="Orders"
-                    className="button"
-                    to="/order"
-                />  
-                <Link
-                    children="Species"
-                    className="button"
-                    to="/species"
-                />  
-                <Link
-                    children="Customers"
-                    className="button"
-                    to="/customer"
-                />  
-                <button
-                    children="Log Out"
-                    className="button secondary"
-                    onClick={authContext.onLogout}
-                />
-            </div>
-        </header>
+        </nav>
     );
 }

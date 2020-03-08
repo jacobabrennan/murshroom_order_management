@@ -1,29 +1,46 @@
 
 
-//==============================================================================
+//== Order Form ================================================================
 
 //-- Dependencies --------------------------------
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useRef } from 'react';
 // import { Link, useHistory } from 'react-router-dom';
 import CustomerFinder from '../components/customer_finder/index.js';
 // import usePost from '../utilities/use_post.js';
 import speciesContext from '../species/index.js';
+import usePost from '../utilities/use_post.js';
+import { Link } from 'react-router-dom';
+import Loading from '../components/loading/index.js';
 
 //-- Project Constants ---------------------------
-// const URL_ORDER_NEW = '/data/order';
+const URL_ORDER_NEW = '/data/order';
 
-//-- Main Component ------------------------------
+
+//== Main Component ============================================================
+
+//-- Component definition and hook setup ---------
 export default function ViewNew() {
     const [customer, setCustomer] = useState(null);
+    const [shipDate, setShipDate] = useState(null);
     const [products, setProducts] = useState([]);
-    // Handle Interaction Customer
+    const [response, postTrigger] = usePost(URL_ORDER_NEW);
+    const refOrderForm = useRef();
+    
+    //-- Interaction Handlers ------------------------
+    // Customer
     function handleSelect(customerSelected) {
         setCustomer(customerSelected);
     }
-    function handleClear() {
+    function handleClear(eventClick) {
+        eventClick.preventDefault();
         setCustomer(null);
     }
-    // Handle Interaction Products
+    // Ship Date
+    function handleDateChange(eventChange) {
+        const newDate = eventChange.currentTarget.value;
+        setShipDate(newDate);
+    }
+    // Products
     function handleProductAdd(newProduct) {
         const newProducts = products.slice();
         newProducts.push(newProduct);
@@ -45,29 +62,82 @@ export default function ViewNew() {
         newProducts[productIndex] = newProduct;
         setProducts(newProducts);
     }
-    //
-    if(!customer) {
-        return (<CustomerFinder onSelect={handleSelect} />);
+    // Form Global
+    function handleSubmit(eventSubmit) {
+        eventSubmit.preventDefault();
+        const newOrder = {
+            customerId: customer.id,
+            shipDate: shipDate,
+            products: products.map(product => ({
+                id: product.species.id,
+                quantity: product.quantity,
+            })),
+        }
+        console.log(newOrder)
+        // postTrigger()
     }
-    //
+    
+    //-- Loading Display for Data Submission ---------
+    if(response.loading) {
+        return (
+            <div className="order-form">
+                <h1>New Order</h1>
+                <Loading />
+            </div>
+        );
+    }
+    
+    //-- Initial customer selector display -----------
+    if(!customer) {
+        return (
+            <div className="order-form">
+                <h1>New Order</h1>
+                <fieldset>
+                    <legend>Customer</legend>
+                    <CustomerFinder onSelect={handleSelect} />
+                </fieldset>
+            </div>
+        );
+    }
+
+    //-- Full order form display ---------------------
     return (
-        <div>
-            <div>
-                <span>Customer Found!: {customer.name}</span>
-                <button className="button" onClick={handleClear} children="Clear" />
-            </div>
-            <div>
-                {products.map((product, index) => 
-                    <ProductLine
-                        key={index}
-                        product={product}
-                        onChange={handleProductChange}
-                        onDelete={handleProductDelete}
-                    />
-                )}
+        <form ref={refOrderForm} className="order-form">
+            <h1>New Order</h1>
+            <fieldset className="order-form__customer-field">
+                <legend>Customer</legend>
+                <div className="order-form__customer">
+                    <div className="order-form__customer-name">{customer.name}</div>
+                </div>
+                <button className="button danger" onClick={handleClear} children="Clear" />
+            </fieldset>
+            <fieldset>
+                <legend>Ship Date</legend>
+                <input type="date" onChange={handleDateChange} />
+            </fieldset>
+            <fieldset>
+                <legend>Blocks</legend>
+                <ProductTable
+                    products={products}
+                    onChange={handleProductChange}
+                    onDelete={handleProductDelete}
+                />
                 <ProductSelector products={products} onSelect={handleProductAdd} />
-            </div>
-        </div>
+            </fieldset>
+            <fieldset className="button-bar">
+                <button
+                    className="button"
+                    onClick={handleSubmit}
+                    type="submit"
+                    children="Submit"
+                />
+                <Link
+                    className="button danger"
+                    to="/order"
+                    children="Discard"
+                />
+            </fieldset>
+        </form>
     );
 }
 
@@ -115,39 +185,70 @@ function ProductSelector({products, onSelect}) {
 //-- Display Product & Edit Quantity -------------
 function ProductLine({product, onChange, onDelete}) {
     const species = product.species;
-    function productIncrement() {
+    function productIncrement(eventClick) {
+        eventClick.preventDefault();
         const newProduct = Object.assign({}, product);
         newProduct.quantity += species.amount;
         onChange(newProduct);
     }
-    function productReset() {
+    function productReset(eventClick) {
+        eventClick.preventDefault();
         const newProduct = Object.assign({}, product);
         newProduct.quantity = species.amount;
         onChange(newProduct);
     }
-    function productDelete() {
+    function productDelete(eventClick) {
+        eventClick.preventDefault();
         onDelete(species.code);
     }
     //
     return (
-        <div>
-            <span>{species.code}</span>
-            <span> - {product.quantity}</span>
-            <button
+        <tr className="order-form__product-line">
+            <td>{species.code}</td>
+            <td>{product.quantity}</td>
+            <td><button
                 className="button"
                 children={`+${species.amount}`}
                 onClick={productIncrement}
-            />
-            <button
+            /></td>
+            <td><button
                 className="button"
                 children="Reset"
                 onClick={productReset}
-            />
-            <button
-                className="button secondary"
+            /></td>
+            <td><button
+                className="button danger"
                 children="Delete"
                 onClick={productDelete}
-            />
-        </div>
+            /></td>
+        </tr>
+    );
+}
+
+//-- Product Table -------------------------------
+function ProductTable({products, onChange, onDelete}) {
+    if(!products.length) {
+        return '';
+    }
+    return (
+        <table>
+            <thead>
+                <tr>
+                    <th>Product Code</th>
+                    <th>Quantity</th>
+                    <th /><th /><th />
+                </tr>
+            </thead>
+            <tbody>
+                {products.map((product, index) => 
+                    <ProductLine
+                        key={index}
+                        product={product}
+                        onChange={onChange}
+                        onDelete={onDelete}
+                    />
+                )}
+            </tbody>
+        </table>
     );
 }

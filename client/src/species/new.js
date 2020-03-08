@@ -73,9 +73,9 @@ export default function ViewNew() {
                 <span>Incubation Time</span>
                 <input name="incubation time" type="number" />
             </label>
-            <div className="new-species__actions">
+            <div className="button-bar">
                 <button className="button" type="submit" children="Submit" />
-                <Link className="button secondary" to="/species" children="Cancel" />
+                <Link className="button danger" to="/species" children="Cancel" />
             </div>
         </form>
     );

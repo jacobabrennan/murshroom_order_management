@@ -63,9 +63,9 @@ export default function ViewEdit() {
                 <span>Location</span>
                 <input name="location" type="text" defaultValue={selection.location} />
             </label>
-            <div className="new-species__actions">
+            <div className="button-bar">
                 <button className="button" type="submit" children="Submit" />
-                <Link className="button secondary" to="/customer" children="Cancel" />
+                <Link className="button danger" to="/customer" children="Cancel" />
             </div>
         </form>
     );

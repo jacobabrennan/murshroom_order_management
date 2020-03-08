@@ -1,0 +1,40 @@
+
+.order-form {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+.order-form__customer-field {
+    display: flex;
+    justify-content: space-between;
+}
+.order-form__customer-field .button.danger {
+    align-self: flex-end;
+}
+.order-form__customer {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.25;
+}
+.order-form table {
+    width: 100%;
+    border-bottom: var(--border-structure);
+    margin-bottom: var(--spacing-structure);
+}
+.order-form thead {
+    border-bottom: var(--border-structure);
+    margin-bottom: var(--spacing-structure);
+}
+.order-form__product-line .button {
+    width: 10rem;
+    height: 3rem;
+    margin: auto;
+}
+.order-form__product-line td {
+    padding: var(--spacing-structure) 0rem;
+    text-align: center;
+    vertical-align: middle;
+}
+.order-form select, .order-form input[type=date] {
+    width: 100%;
+}

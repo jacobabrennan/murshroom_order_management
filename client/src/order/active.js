@@ -23,7 +23,10 @@ export default function ViewActive() {
     //
     return (
         <div>
-            <Link className="button" to={URL_ORDER_NEW} children="+ Order" />
+            <h1 className="action-attach">
+                <span className="action-attach__text">Order Management</span>
+                <Link className="button" to={URL_ORDER_NEW} children="+ Order" />
+            </h1>
             <div>
                 {response.data.map(
                     order => <Order key={order.id} order={order} />

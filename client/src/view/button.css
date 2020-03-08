@@ -32,17 +32,17 @@
     display: inline;
 }
 
-.button.danger:hover {
+.button.danger {
     background: var(--color-danger);
 }
-.button.secondary, .button.secondary {
-    border: var(--border-structure);
-    color: var(--color-subdued);
-    background: var(--color-field);
+.button.danger:hover {
+    background: var(--color-action);
+}
+.button.secondary {
+    background: var(--color-secondary);
+    color: var(--color-field);
 }
 .button.secondary:hover {
-    border: none;
-    color: var(--color-field);
     background: var(--color-action);
 }
 .button.small {

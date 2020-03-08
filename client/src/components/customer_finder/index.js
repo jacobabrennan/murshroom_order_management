@@ -4,6 +4,7 @@
 
 //-- Dependencies --------------------------------
 import React, { useRef, useState } from 'react';
+import './customer_finder.css';
 
 //-- Project Constants ---------------------------
 const URL_CUSTOMER_SEARCH = '/data/customer/search';
@@ -38,9 +39,11 @@ export default function CustomerFinder({onSelect}) {
         <div className="customer-finder">
             <form ref={formRef} onSubmit={handleSubmit}>
                 <label>
-                    <span>Customer Number or Name</span>
-                    <input name="query" type="text" />
-                    <button className="button small" type="submit" children="Find" />
+                    <div className="customer-finder__prompt">Customer Number or Name</div>
+                    <div className="input-bar">
+                        <input name="query" type="text" />
+                        <button className="button" type="submit" children="Find" />
+                    </div>
                 </label>
             </form>
             <div>
@@ -63,11 +66,8 @@ function Customer({customer, onClick}) {
     }
     return (
         <div onClick={handleClick} className="customer-finder__customer">
-            {customer.name}
-            <br />
-            {customer.location}
-            <br />
-            <br />
+            <span>{customer.name}</span>
+            <span>{customer.location}</span>
         </div>
     );
 }
