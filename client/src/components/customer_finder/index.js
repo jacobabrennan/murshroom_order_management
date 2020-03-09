@@ -3,63 +3,76 @@
 //==============================================================================
 
 //-- Dependencies --------------------------------
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
+import useGetDelayed from '../../utilities/use_get_delayed.js';
+import Loading from '../loading/index.js';
+import { API_CUSTOMER_SEARCH } from '../../customer/utilities.js';
 import './customer_finder.css';
 
-//-- Project Constants ---------------------------
-const URL_CUSTOMER_SEARCH = '/data/customer/search';
-
-//------------------------------------------------
+//-- Main Component ------------------------------
 export default function CustomerFinder({onSelect}) {
-    let formRef = useRef();
-    let [searchResults, setSearchResults] = useState([]);
-    //
+    const refInput = useRef();
+    const refButton = useRef();
+    const response = useGetDelayed();
+    // Interaction handlers
     async function handleSubmit(eventSubmit) {
-        //
+        // Prevent page refresh / default form submission behavior
         eventSubmit.preventDefault();
-        const recordForm = formRef.current;
-        for(const element of recordForm.elements) {
-            element.disabled = true;
-        }
-        //
-        const query = recordForm.elements['query'].value;
-        const fetchUrl = `${URL_CUSTOMER_SEARCH}?query=${query}`;
-        //
-        const response = await fetch(fetchUrl);
-        const data = await response.json();
-        setSearchResults(data);
-        //
-        recordForm.reset();
-        for(const element of recordForm.elements) {
-            element.disabled = false;
-        }
+        // Disable controls while loading
+        refButton.current.disabled = true;
+        refInput.current.disabled = true;
+        // Request customer suggestions from server
+        const query = refInput.current.value;
+        const fetchUrl = `${API_CUSTOMER_SEARCH}?query=${query}`;
+        await response.fetch(fetchUrl);
+        // Re-enable and clear controls and 
+        refInput.current.value = null;
+        refInput.current.disabled = false;
+        refButton.current.disabled = false;
     }
-    //
-    return (
-        <div className="customer-finder">
-            <form ref={formRef} onSubmit={handleSubmit}>
-                <label>
-                    <div className="customer-finder__prompt">Customer Number or Name</div>
-                    <div className="input-bar">
-                        <input name="query" type="text" />
-                        <button className="button" type="submit" children="Find" />
-                    </div>
-                </label>
-            </form>
-            <div>
-                {searchResults.map(customer =>
+    // Prep JSX for results display
+    let resultsDisplay = '';
+    if(response.loading) { resultsDisplay = (<Loading />);}
+    else if(!response.data) { resultsDisplay = '';}
+    else if(!response.data.length) {
+        resultsDisplay = (<div className="customer-finder__no-results">No customers found.</div>);
+    }
+    else {
+        resultsDisplay = (
+            <React.Fragment>
+                {response.data.map(customer =>
                     <Customer
                         key={customer.id}
                         customer={customer}
                         onClick={onSelect}
                     />
                 )}
+            </React.Fragment>
+        );
+    }
+    // Render component
+    return (
+        <div className="customer-finder">
+            <label>
+                <div className="customer-finder__prompt">Customer Number or Name</div>
+                <div className="input-bar">
+                    <input ref={refInput} name="query" type="text" />
+                    <button
+                        ref={refButton}
+                        className="button"
+                        children="Find"
+                        onClick={handleSubmit}
+                    />
+                </div>
+            </label>
+            <div className="customer-finder__results">
+                {resultsDisplay}
             </div>
         </div>
     );
 }
 
-//------------------------------------------------
+//-- Customer Sub-component ----------------------
 function Customer({customer, onClick}) {
     function handleClick() {
         onClick(customer);

@@ -1,4 +1,5 @@
 
+/*----------------------------------------------*/
 .order-form {
     flex-grow: 1;
     display: flex;
@@ -37,4 +38,26 @@
 }
 .order-form select, .order-form input[type=date] {
     width: 100%;
+}
+
+/*----------------------------------------------*/
+.active-orders {
+    width: 100%;
+    /* table-layout: fixed; */
+}
+.active-orders thead {
+    border-bottom: var(--border-structure);
+    margin-bottom: var(--spacing-structure);
+}
+.active-orders td, .active-orders th {
+    padding: var(--spacing-structure) 0rem;
+    text-align: center;
+    vertical-align: middle;
+}
+.active-orders__order {
+    cursor: pointer;
+}
+.active-orders__order:hover {
+    border-color: var(--color-action);
+    background-color: var(--color-field);
 }

@@ -52,3 +52,10 @@
     display: inline-flex;
     border-radius: unset;
 }
+
+.button[disabled],
+.button[disabled]:hover,
+.button[disabled]:active {
+    transform: unset;
+    background: var(--color-subdued);
+}

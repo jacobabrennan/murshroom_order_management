@@ -9,10 +9,10 @@ import {
 } from './data_access.js';
 
 //-- Project Constants ---------------------------
+const PARAM_ID = 'id';
 const URL_CUSTOMER_NEW = '/';
-const URL_CUSTOMER_SINGLE = '/:id';
+const URL_CUSTOMER_SINGLE = `/:${PARAM_ID}`;
 const URL_CUSTOMER_SEARCH = '/search'
-const PARAM_CUSTOMER_ID = 'id';
 
 //-- Export Router -------------------------------
 const router = express.Router();

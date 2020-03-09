@@ -9,7 +9,6 @@ import usePost from '../utilities/use_post.js';
 import useFeedback from '../utilities/use_feedback.js';
 import {
     API_CUSTOMER_SUBMIT,
-    ASDF,
     ROUTE_CUSTOMER_BASE,
     INVALID_NO_NAME,
     INVALID_NO_LOCATION,
@@ -50,7 +49,9 @@ export default function ViewNew() {
     //
     return (
         <form ref={formRef} className="big-form" onSubmit={submitHandler}>
-            <h1>New Customer</h1>
+            <h1 className="action-attach">
+                <span className="action-attach__text">New Customer</span>
+            </h1>
             <label>
                 <span>Customer Name</span>
                 <input name="name" type="text" />

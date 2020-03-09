@@ -3,7 +3,6 @@
 .species-list {
     table-layout: fixed;
     width: 100%;
-    border-bottom: var(--border-structure);
     margin-bottom: var(--spacing-structure);
 }
 .species-list thead {
@@ -12,11 +11,6 @@
 }
 .species-list__species {
     cursor: pointer;
-    /* border: var(--border-structure); */
-    /* border-radius: var(--radius-structure); */
-    /* margin-bottom: var(--spacing-structure); */
-    /* padding: var(--spacing-structure); */
-    color: var(--color-primary);
 }
 .species-list__species:hover {
     border-color: var(--color-action);

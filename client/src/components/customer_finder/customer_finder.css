@@ -1,11 +1,17 @@
 
 .customer-finder {
-    cursor: pointer;
     font-size: 2rem;
 }
 /* .customer-finder__prompt {
 } */
+.customer-finder__results {
+    min-height: 8rem;
+}
+.customer-finder__no-results {
+    padding-top: var(--spacing-structure);
+}
 .customer-finder__customer {
+    cursor: pointer;
     margin-top: var(--spacing-structure);
     padding: var(--spacing-structure);
     border: var(--border-structure);

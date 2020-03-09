@@ -4,7 +4,7 @@
 
 //-- Dependencies --------------------------------
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import Loading from '../components/loading/index.js';
 import useGet from '../utilities/use_get.js';
 import {
@@ -21,27 +21,48 @@ export default function ViewActive() {
         return (<Loading />);
     }
     //
+    const orderedOrders = response.data.sort(
+        (order1, order2) => order1.shipDate > order2.shipDate
+    );
+    //
     return (
         <div>
             <h1 className="action-attach">
                 <span className="action-attach__text">Order Management</span>
                 <Link className="button" to={ROUTE_ORDER_NEW} children="+ Order" />
             </h1>
-            <div>
-                {response.data.map(
-                    order => <Order key={order.id} order={order} />
-                )}
-            </div>
+            <table className="active-orders">
+                <thead>
+                    <tr>
+                        <th>customerName</th>
+                        <th>created</th>
+                        <th>status</th>
+                        <th>shipDate</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {orderedOrders.map(
+                        order => <Order key={order.id} order={order} />
+                    )}
+                </tbody>
+            </table>
         </div>
     );
 }
 
 //------------------------------------------------
 function Order({order}) {
-    const orderUrl = `${ROUTE_ORDER_SINGLE}/${order.id}`;
+    const history = useHistory();
+    function handleClick() {
+        const orderUrl = `${ROUTE_ORDER_SINGLE}/${order.id}`;
+        history.push(orderUrl);
+    }
     return (
-        <Link to={orderUrl}>
-            asdf
-        </Link>
+        <tr className="active-orders__order" onClick={handleClick}>
+            <td>{order.customerName}</td>
+            <td>{order.created}</td>
+            <td>{order.status}</td>
+            <td>{order.shipDate}</td>
+        </tr>
     );
 }

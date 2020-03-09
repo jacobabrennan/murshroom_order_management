@@ -49,7 +49,9 @@ export default function ViewNew() {
     //
     return (
         <form ref={formRef} className="big-form" onSubmit={submitHandler}>
-            <h1>New Species</h1>
+            <h1 className="action-attach">
+                <span className="action-attach__text">New Species</span>
+            </h1>
             <label>
                 <span>Code</span>
                 <input name="code" type="text" />

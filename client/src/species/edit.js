@@ -53,7 +53,9 @@ export default function ViewEdit() {
     }
     return (
         <form ref={formRef} className="big-form" onSubmit={submitHandler}>
-            <h1>Edit Species: {id}</h1>
+            <h1 className="action-attach">
+                <span className="action-attach__text">Edit Species: {id}</span>
+            </h1>
             <label>
                 <span>Code</span>
                 <input name="code" type="text" defaultValue={selection.code} />

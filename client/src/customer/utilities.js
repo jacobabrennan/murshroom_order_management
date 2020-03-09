@@ -3,7 +3,9 @@
 //==============================================================================
 
 //-- API URLs ------------------------------------
+export const API_CUSTOMER_SEARCH = '/data/customer/search';
 export const API_CUSTOMER_SUBMIT = '/data/customer';
+
 
 //-- Routing URLs, and Parameters ----------------
 export const ROUTE_CUSTOMER_BASE = '/customer';
