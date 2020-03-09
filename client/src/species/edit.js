@@ -52,7 +52,7 @@ export default function ViewEdit() {
         return '';
     }
     return (
-        <form ref={formRef} className="new-species" onSubmit={submitHandler}>
+        <form ref={formRef} className="big-form" onSubmit={submitHandler}>
             <h1>Edit Species: {id}</h1>
             <label>
                 <span>Code</span>

@@ -42,7 +42,7 @@ export default function ViewEdit() {
         //
         let problems = [];
         if(!data.name) { problems.push(INVALID_NO_NAME);}
-        if(!data.name) { problems.push(INVALID_NO_LOCATION);}
+        if(!data.location) { problems.push(INVALID_NO_LOCATION);}
         if(problems.length) {
             feedback(problems);
             return;
@@ -58,7 +58,7 @@ export default function ViewEdit() {
     }
     //
     return (
-        <form ref={formRef} className="new-species" onSubmit={submitHandler}>
+        <form ref={formRef} className="big-form" onSubmit={submitHandler}>
             <h1>Edit Customer: {id}</h1>
             <label>
                 <span>Name</span>

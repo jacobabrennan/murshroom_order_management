@@ -27,14 +27,3 @@
     text-align: center;
     vertical-align: middle;
 }
-
-/*----------------------------------------------*/
-.new-species {
-    display: flex;
-    flex-direction: column;
-}
-.new-species label {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 1rem;
-}

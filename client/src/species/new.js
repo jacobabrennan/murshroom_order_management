@@ -40,7 +40,7 @@ export default function ViewNew() {
     // Loading Display for Data Submission
     if(response.loading) {
         return (
-            <div className="new-species">
+            <div className="big-form">
                 <h1>New species</h1>
                 <Loading />
             </div>
@@ -48,7 +48,7 @@ export default function ViewNew() {
     }
     //
     return (
-        <form ref={formRef} className="new-species" onSubmit={submitHandler}>
+        <form ref={formRef} className="big-form" onSubmit={submitHandler}>
             <h1>New Species</h1>
             <label>
                 <span>Code</span>

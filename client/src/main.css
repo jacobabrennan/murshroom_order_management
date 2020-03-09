@@ -74,3 +74,13 @@ fieldset legend {
 .action-attach__text {
     align-self: flex-start;
 }
+.big-form {
+    display: flex;
+    flex-direction: column;
+}
+.big-form label {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+
