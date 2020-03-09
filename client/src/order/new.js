@@ -4,16 +4,21 @@
 
 //-- Dependencies --------------------------------
 import React, { useState, useContext, useRef } from 'react';
-// import { Link, useHistory } from 'react-router-dom';
-import CustomerFinder from '../components/customer_finder/index.js';
-// import usePost from '../utilities/use_post.js';
-import speciesContext from '../species/index.js';
-import usePost from '../utilities/use_post.js';
 import { Link } from 'react-router-dom';
+import usePost from '../utilities/use_post.js';
+import useFeedback from '../utilities/use_feedback.js';
+import CustomerFinder from '../components/customer_finder/index.js';
+import speciesContext from '../species/index.js';
 import Loading from '../components/loading/index.js';
+import {
+    API_ORDER_NEW,
+    INVALID_NO_CUSTOMER,
+    INVALID_NO_SHIPDATE,
+    INVALID_NO_PRODUCTS,
+    ROUTE_ORDER_BASE,
+} from './utilities.js';
 
 //-- Project Constants ---------------------------
-const URL_ORDER_NEW = '/data/order';
 
 
 //== Main Component ============================================================
@@ -22,8 +27,9 @@ const URL_ORDER_NEW = '/data/order';
 export default function ViewNew() {
     const [customer, setCustomer] = useState(null);
     const [shipDate, setShipDate] = useState(null);
+    const [warnings, feedback] = useFeedback();
     const [products, setProducts] = useState([]);
-    const [response, postTrigger] = usePost(URL_ORDER_NEW);
+    const [response, postTrigger] = usePost(API_ORDER_NEW);
     const refOrderForm = useRef();
     
     //-- Interaction Handlers ------------------------
@@ -65,6 +71,7 @@ export default function ViewNew() {
     // Form Global
     function handleSubmit(eventSubmit) {
         eventSubmit.preventDefault();
+        //
         const newOrder = {
             customerId: customer.id,
             shipDate: shipDate,
@@ -73,6 +80,16 @@ export default function ViewNew() {
                 quantity: product.quantity,
             })),
         }
+        //
+        const validationProblems = [];
+        if(!customer) { validationProblems.push(INVALID_NO_CUSTOMER);}
+        if(!shipDate) { validationProblems.push(INVALID_NO_SHIPDATE);}
+        if(!products.length) { validationProblems.push(INVALID_NO_PRODUCTS);}
+        if(validationProblems.length) {
+            feedback(validationProblems);
+            return;
+        }
+        //
         console.log(newOrder)
         // postTrigger()
     }
@@ -124,18 +141,21 @@ export default function ViewNew() {
                 />
                 <ProductSelector products={products} onSelect={handleProductAdd} />
             </fieldset>
-            <fieldset className="button-bar">
-                <button
-                    className="button"
-                    onClick={handleSubmit}
-                    type="submit"
-                    children="Submit"
-                />
-                <Link
-                    className="button danger"
-                    to="/order"
-                    children="Discard"
-                />
+            <fieldset>
+                {warnings}
+                <div className="button-bar">
+                    <button
+                        className="button"
+                        onClick={handleSubmit}
+                        type="submit"
+                        children="Submit"
+                    />
+                    <Link
+                        className="button danger"
+                        to={ROUTE_ORDER_BASE}
+                        children="Discard"
+                    />
+                </div>
             </fieldset>
         </form>
     );

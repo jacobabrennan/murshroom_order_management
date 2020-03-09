@@ -5,38 +5,47 @@
 //-- Dependencies --------------------------------
 import React, { useRef } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import usePost from '../utilities/use_post';
-
-//-- Project Constants ---------------------------
-const URL_CUSTOMER_SUBMIT = '/data/customer';
+import usePost from '../utilities/use_post.js';
+import useFeedback from '../utilities/use_feedback.js';
+import {
+    API_CUSTOMER_SUBMIT,
+    ASDF,
+    ROUTE_CUSTOMER_BASE,
+    INVALID_NO_NAME,
+    INVALID_NO_LOCATION,
+} from './utilities';
+import Loading from '../components/loading/index.js';
 
 //------------------------------------------------
 export default function ViewNew() {
     const formRef = useRef();
     const history = useHistory();
-    const [, triggerPost] = usePost(URL_CUSTOMER_SUBMIT);
+    const [response, triggerPost] = usePost(API_CUSTOMER_SUBMIT);
+    const [warnings, feedback] = useFeedback();
     //
     async function submitHandler(eventSubmit) {
-        //
         eventSubmit.preventDefault();
-        const recordForm = formRef.current;
-        for(const element of recordForm.elements) {
-            element.disabled = true;
-        }
         //
+        const recordForm = formRef.current;
         let data = {
             name: recordForm.elements['name'].value,
             location: recordForm.elements['location'].value,
         }
         //
-        await triggerPost(data);
-        //
-        recordForm.reset();
-        for(const element of recordForm.elements) {
-            element.disabled = false;
+        let problems = [];
+        if(!data.name) { problems.push(INVALID_NO_NAME);}
+        if(!data.name) { problems.push(INVALID_NO_LOCATION);}
+        if(problems.length) {
+            feedback(problems);
+            return;
         }
         //
-        history.push('/customer');
+        await triggerPost(data);
+        history.push(ROUTE_CUSTOMER_BASE);
+    }
+    //
+    if(response.loading) {
+        return (<Loading />);
     }
     //
     return (
@@ -50,9 +59,10 @@ export default function ViewNew() {
                 <span>Location</span>
                 <input name="location" type="text" />
             </label>
+            {warnings}
             <div className="button-bar">
                 <button className="button" type="submit" children="Submit" />
-                <Link className="button danger" to="/customer" children="Cancel" />
+                <Link className="button danger" to={ROUTE_CUSTOMER_BASE} children="Cancel" />
             </div>
         </form>
     );

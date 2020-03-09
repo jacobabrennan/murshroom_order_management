@@ -1,0 +1,11 @@
+
+.warnings {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: var(--spacing-structure);
+    color: var(--color-danger);
+}
+.warnings__warning {
+    list-style-type: disc;
+    margin-left: 2rem;
+}

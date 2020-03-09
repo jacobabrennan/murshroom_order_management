@@ -65,6 +65,7 @@ fieldset legend {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    margin-bottom: var(--spacing-structure);
 }
 .action-attach {
     display: flex;

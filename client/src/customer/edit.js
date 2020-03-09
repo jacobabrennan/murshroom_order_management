@@ -8,50 +8,55 @@ import { Link, useHistory, useParams, Redirect } from 'react-router-dom';
 import Loading from '../components/loading/index.js';
 import usePost from '../utilities/use_post.js';
 import useGet from '../utilities/use_get.js';
-
-//-- Project Constants ---------------------------
-const URL_CUSTOMER_EDIT = '/data/customer';
+import useFeedback from '../utilities/use_feedback.js';
+import {
+    ROUTE_CUSTOMER_BASE,
+    INVALID_NO_NAME,
+    INVALID_NO_LOCATION,
+    API_CUSTOMER_SUBMIT,
+    PARAM_ID,
+} from './utilities.js';
 
 //------------------------------------------------
 export default function ViewEdit() {
     const formRef = useRef();
     const history = useHistory();
-    const {id} = useParams();
-    const customerUrl = `${URL_CUSTOMER_EDIT}/${id}`;
+    const id = useParams()[PARAM_ID];
+    const customerUrl = `${API_CUSTOMER_SUBMIT}/${id}`;
     const response = useGet(customerUrl)
-    const [, triggerPost] = usePost(customerUrl);
+    const [warnings, feedback] = useFeedback();
+    const [postResponse, triggerPost] = usePost(customerUrl);
     //
-    if(response.loading) {
+    if(response.loading || postResponse.loading) {
         return (<Loading />);
     }
     //
     async function submitHandler(eventSubmit) {
-        //
         eventSubmit.preventDefault();
-        const recordForm = formRef.current;
-        for(const element of recordForm.elements) {
-            element.disabled = true;
-        }
         //
+        const recordForm = formRef.current;
         let data = {
             name: recordForm.elements['name'].value,
             location: recordForm.elements['location'].value,
         }
         //
-        await triggerPost(data);
-        //
-        recordForm.reset();
-        for(const element of recordForm.elements) {
-            element.disabled = false;
+        let problems = [];
+        if(!data.name) { problems.push(INVALID_NO_NAME);}
+        if(!data.name) { problems.push(INVALID_NO_LOCATION);}
+        if(problems.length) {
+            feedback(problems);
+            return;
         }
         //
-        history.push('/customer');
+        await triggerPost(data);
+        history.push(ROUTE_CUSTOMER_BASE);
     }
     //
     const selection = response.data;
     if(!selection) {
-        return (<Redirect to="/customer" />);
+        return (<Redirect to={ROUTE_CUSTOMER_BASE} />);
     }
+    //
     return (
         <form ref={formRef} className="new-species" onSubmit={submitHandler}>
             <h1>Edit Customer: {id}</h1>
@@ -63,9 +68,10 @@ export default function ViewEdit() {
                 <span>Location</span>
                 <input name="location" type="text" defaultValue={selection.location} />
             </label>
+            {warnings}
             <div className="button-bar">
                 <button className="button" type="submit" children="Submit" />
-                <Link className="button danger" to="/customer" children="Cancel" />
+                <Link className="button danger" to={ROUTE_CUSTOMER_BASE} children="Cancel" />
             </div>
         </form>
     );

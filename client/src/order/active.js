@@ -7,15 +7,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Loading from '../components/loading/index.js';
 import useGet from '../utilities/use_get.js';
-
-//-- Project Constants ---------------------------
-const URL_ORDER_ACTIVE = '/data/order/active';
-const URL_ORDER_SINGLE = '/order';
-const URL_ORDER_NEW = '/order/new';
+import {
+    ROUTE_ORDER_NEW,
+    API_ORDER_ACTIVE,
+    ROUTE_ORDER_SINGLE,
+} from './utilities.js';
 
 //------------------------------------------------
 export default function ViewActive() {
-    let response = useGet(URL_ORDER_ACTIVE);
+    let response = useGet(API_ORDER_ACTIVE);
     //
     if(response.loading) {
         return (<Loading />);
@@ -25,7 +25,7 @@ export default function ViewActive() {
         <div>
             <h1 className="action-attach">
                 <span className="action-attach__text">Order Management</span>
-                <Link className="button" to={URL_ORDER_NEW} children="+ Order" />
+                <Link className="button" to={ROUTE_ORDER_NEW} children="+ Order" />
             </h1>
             <div>
                 {response.data.map(
@@ -38,7 +38,7 @@ export default function ViewActive() {
 
 //------------------------------------------------
 function Order({order}) {
-    const orderUrl = `${URL_ORDER_SINGLE}/${order.id}`;
+    const orderUrl = `${ROUTE_ORDER_SINGLE}/${order.id}`;
     return (
         <Link to={orderUrl}>
             asdf

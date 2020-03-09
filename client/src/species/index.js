@@ -9,11 +9,15 @@ import useGet from '../utilities/use_get.js';
 import ViewNew from './new';
 import ViewAll from './all';
 import ViewEdit from './edit.js';
-import './style.css';
 import Loading from '../components/loading/index.js';
-
-//-- Project Constants ---------------------------
-const URL_SPECIES_ALL = '/data/species/all';
+import {
+    API_SPECIES_ALL,
+    PARAM_ID,
+    ROUTE_SPECIES_BASE,
+    ROUTE_SPECIES_NEW,
+    ROUTE_SPECIES_EDIT,
+} from './utilities.js';
+import './style.css';
 
 //-- Species Context -----------------------------
 const speciesContext = createContext({
@@ -24,7 +28,7 @@ export default speciesContext;
 
 //-- Species Data Provider -----------------------
 export function SpeciesData({ children }) {
-    const response = useGet(URL_SPECIES_ALL);
+    const response = useGet(API_SPECIES_ALL);
     let speciesData = {
         list: [],
         refresh() {},
@@ -32,10 +36,7 @@ export function SpeciesData({ children }) {
     if(response.data) {
         speciesData = {
             list: response.data.speciesAll,
-            refresh: () => {
-                console.log('refreshing')
-                response.refetch()
-            }
+            refresh: response.refetch,
         }
     }
     //
@@ -53,17 +54,17 @@ export function SpeciesData({ children }) {
 export function ViewSpecies() {
     return (
         <Switch>
-            <Route path="/species/new" exact>
+            <Route path={ROUTE_SPECIES_NEW} exact>
                 <ViewNew />
             </Route>
-            <Route path="/species/edit/:id" exit>
+            <Route path={`${ROUTE_SPECIES_EDIT}/:${PARAM_ID}`} exit>
                 <ViewEdit />
             </Route>
-            <Route path="/species" exact>
+            <Route path={ROUTE_SPECIES_BASE} exact>
                 <ViewAll />
             </Route>
             <Route>
-                <Redirect to="/" />
+                <Redirect to={ROUTE_SPECIES_BASE} />
             </Route>
         </Switch>
     );

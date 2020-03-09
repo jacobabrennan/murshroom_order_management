@@ -6,10 +6,10 @@
 import React, { useContext } from 'react';
 import speciesContext from './index.js';
 import { Link, useHistory } from 'react-router-dom';
-
-//-- Project Constants ---------------------------
-const URL_SPECIES_NEW = '/species/new';
-const URL_SPECIES_EDIT = '/species/edit';
+import {
+    ROUTE_SPECIES_NEW,
+    ROUTE_SPECIES_EDIT,
+} from './utilities.js';
 
 //------------------------------------------------
 export default function ViewAll() {
@@ -18,7 +18,7 @@ export default function ViewAll() {
         <React.Fragment>
             <h1 className="action-attach">
                 <span className="action-attach__text">Species Management</span>
-                <Link className="button" to={URL_SPECIES_NEW} children="+ Species" />
+                <Link className="button" to={ROUTE_SPECIES_NEW} children="+ Species" />
             </h1>
             <table className="species-list">
                 <thead>
@@ -44,8 +44,8 @@ export default function ViewAll() {
 //------------------------------------------------
 function Species({species}) {
     const history = useHistory();
-    function handleClick(clickEvent) {
-        history.push(`${URL_SPECIES_EDIT}/${species.id}`);
+    function handleClick() {
+        history.push(`${ROUTE_SPECIES_EDIT}/${species.id}`);
     }
     return (
         <tr className="species-list__species" onClick={handleClick}>

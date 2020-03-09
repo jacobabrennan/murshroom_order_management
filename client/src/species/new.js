@@ -5,45 +5,46 @@
 //-- Dependencies --------------------------------
 import React, { useRef, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import usePost from '../utilities/use_post';
 import speciesContext from '.';
-
-//-- Project Constants ---------------------------
-const URL_SPECIES_NEW = '/data/species';
+import Loading from '../components/loading';
+import usePost from '../utilities/use_post';
+import useFeedback from '../utilities/use_feedback';
+import {
+    API_SPECIES_NEW,
+    ROUTE_SPECIES_BASE,
+    validateForm,
+} from './utilities.js';
 
 //------------------------------------------------
 export default function ViewNew() {
+    const [warnings, feedback] = useFeedback();
     const speciesData = useContext(speciesContext);
     const formRef = useRef();
     const history = useHistory();
-    const [, triggerPost] = usePost(URL_SPECIES_NEW);
+    const [response, triggerPost] = usePost(API_SPECIES_NEW);
     //
     async function submitHandler(eventSubmit) {
         //
         eventSubmit.preventDefault();
-        const speciesForm = formRef.current;
-        for(const element of speciesForm.elements) {
-            element.disabled = true;
-        }
-        //
-        let data = {
-            code: speciesForm.elements['code'].value,
-            species: speciesForm.elements['species'].value,
-            strain: speciesForm.elements['strain'].value,
-            substrateFormat: speciesForm.elements['substrate format'].value,
-            amount: speciesForm.elements['amount'].value,
-            incubationTime: speciesForm.elements['incubation time'].value,
+        const {data, problems} = validateForm(formRef.current);
+        if(problems) {
+            feedback(problems);
+            return;
         }
         //
         await triggerPost(data);
         //
-        speciesForm.reset();
-        for(const element of speciesForm.elements) {
-            element.disabled = false;
-        }
-        //
         speciesData.refresh();
-        history.push('/species');
+        history.push(ROUTE_SPECIES_BASE);
+    }
+    // Loading Display for Data Submission
+    if(response.loading) {
+        return (
+            <div className="new-species">
+                <h1>New species</h1>
+                <Loading />
+            </div>
+        );
     }
     //
     return (
@@ -73,9 +74,10 @@ export default function ViewNew() {
                 <span>Incubation Time</span>
                 <input name="incubation time" type="number" />
             </label>
+            {warnings}
             <div className="button-bar">
                 <button className="button" type="submit" children="Submit" />
-                <Link className="button danger" to="/species" children="Cancel" />
+                <Link className="button danger" to={ROUTE_SPECIES_BASE} children="Cancel" />
             </div>
         </form>
     );
