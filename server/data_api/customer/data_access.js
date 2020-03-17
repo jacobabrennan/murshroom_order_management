@@ -4,10 +4,13 @@
 
 //-- Dependencies --------------------------------
 import database from '../../database/index.js';
+import {
+    TABLE_CUSTOMER,
+    FIELD_NAME,
+} from '../utilities.js';
 
-//------------------------------------------------
-const TABLE_CUSTOMER = 'customer';
-const FIELD_NAME = 'name';
+
+//==============================================================================
 
 //------------------------------------------------
 export async function customerSearch(query) {

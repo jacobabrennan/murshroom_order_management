@@ -5,14 +5,17 @@
 //-- Dependencies --------------------------------
 import express from 'express';
 import {
-    customerCreate, customerEdit, customerGet, customerSearch,
+    customerCreate,
+    customerEdit,
+    customerGet,
+    customerSearch,
 } from './data_access.js';
-
-//-- Project Constants ---------------------------
-const PARAM_ID = 'id';
-const URL_CUSTOMER_NEW = '/';
-const URL_CUSTOMER_SINGLE = `/:${PARAM_ID}`;
-const URL_CUSTOMER_SEARCH = '/search'
+import {
+    PARAM_ID,
+    URL_CUSTOMER_NEW,
+    URL_CUSTOMER_SINGLE,
+    URL_CUSTOMER_SEARCH,
+} from '../utilities.js';
 
 //-- Export Router -------------------------------
 const router = express.Router();
@@ -43,7 +46,7 @@ router.get(URL_CUSTOMER_SEARCH, async function (request, response, next) {
 
 //------------------------------------------------
 router.get(URL_CUSTOMER_SINGLE, async function (request, response, next) {
-    const customerId = parseInt(request.params[PARAM_CUSTOMER_ID]);
+    const customerId = parseInt(request.params[PARAM_ID]);
     const customer = await customerGet(customerId);
     response.json(customer);
 });
@@ -56,7 +59,7 @@ router.post(URL_CUSTOMER_NEW, async function (request, response, next) {
 
 //------------------------------------------------
 router.post(URL_CUSTOMER_SINGLE, async function (request, response, next) {
-    const customerId = parseInt(request.params[PARAM_CUSTOMER_ID]);
+    const customerId = parseInt(request.params[PARAM_ID]);
     await customerEdit(customerId, request.body);
     response.json({id: customerId});
 });

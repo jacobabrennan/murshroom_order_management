@@ -10,12 +10,12 @@ import {
     getOrder,
     updateOrder,
 } from './data_access.js';
-
-//-- Project Constants ---------------------------
-const PARAM_ID = 'id';
-const URL_ORDER_ACTIVE = '/active';
-const URL_ORDER_NEW = '/';
-const URL_ORDER_SINGLE = `/:${PARAM_ID}`;
+import {
+    PARAM_ID,
+    URL_ORDER_ACTIVE,
+    URL_ORDER_NEW,
+    URL_ORDER_SINGLE,
+} from '../utilities.js';
 
 //-- Export Router -------------------------------
 const router = express.Router();

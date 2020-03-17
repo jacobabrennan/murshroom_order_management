@@ -4,11 +4,12 @@
 
 //-- Dependencies --------------------------------
 import database from '../../database/index.js';
+import {
+    TABLE_SPECIES,
+} from '../utilities.js';
 
-//------------------------------------------------
-const TABLE_SPECIES = 'species';
 
-//-- Project Constants ---------------------------
+//==============================================================================
 
 //------------------------------------------------
 export async function speciesList() {

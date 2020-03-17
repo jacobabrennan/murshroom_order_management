@@ -4,24 +4,29 @@
 
 //-- Dependencies --------------------------------
 import database from '../../database/index.js';
-
+import {
+    field,
+    dateString,
+    TABLE_ORDER,
+    TABLE_ORDER_ITEM,
+    TABLE_CUSTOMER,
+    FIELD_ID,
+    FIELD_CUSTOMER_ID,
+    FIELD_CREATED,
+    FIELD_SHIP_DATE,
+    FIELD_STATUS,
+    FIELD_ORDER_ID,
+    FIELD_SPECIES_ID,
+    FIELD_QUANTITY,
+    FIELD_NAME,
+    ORDER_STATUS_OPEN,
+    ORDER_STATUS_SPAWNED,
+    ORDER_STATUS_SHIPPED,
+    ORDER_STATUS_PAID,
+} from '../utilities.js';
+dateString
 //-- Project Constants ---------------------------
-const TABLE_ORDER = 'order';
-const TABLE_ORDER_ITEM = 'orderItem';
-const TABLE_CUSTOMER = 'customer';
-const FIELD_ID = 'id';
-const FIELD_CUSTOMER_ID = 'customerId';
-const FIELD_CREATED = 'created';
-const FIELD_SHIP_DATE = 'shipDate';
-const FIELD_STATUS = 'status';
-const FIELD_ORDER_ID = 'orderId';
-const FIELD_SPECIES_ID = 'speciesId';
-const FIELD_QUANTITY = 'quantity';
-const FIELD_NAME = 'name';
-const ORDER_STATUS_OPEN = 0;
-const ORDER_STATUS_SPAWNED = 1;
-const ORDER_STATUS_SHIPPED = 2;
-const ORDER_STATUS_PAID = 3;
+const FIELD_CUSTOMER_NAME = 'customerName';
 
 
 //==============================================================================
@@ -29,21 +34,21 @@ const ORDER_STATUS_PAID = 3;
 //-- Get One -------------------------------------
 export async function getOrder(orderId) {
     const order = await database(TABLE_ORDER)
-        .where(`${TABLE_ORDER}.${FIELD_ID}`, orderId)
+        .where(field(TABLE_ORDER, FIELD_ID), orderId)
         .first()
         .join(
             TABLE_CUSTOMER,
-            `${TABLE_ORDER}.${FIELD_CUSTOMER_ID}`,
+            field(TABLE_ORDER, FIELD_CUSTOMER_ID),
             '=',
-            `${TABLE_CUSTOMER}.${FIELD_ID}`,
+            field(TABLE_CUSTOMER, FIELD_ID),
         )
         .select(
-            `${TABLE_ORDER}.${FIELD_ID}`,
-            `${TABLE_ORDER}.${FIELD_CUSTOMER_ID}`,
-            `${TABLE_ORDER}.${FIELD_CREATED}`,
-            `${TABLE_ORDER}.${FIELD_SHIP_DATE}`,
-            `${TABLE_ORDER}.${FIELD_STATUS}`,
-            `${TABLE_CUSTOMER}.${FIELD_NAME} as customerName`,
+            field(TABLE_ORDER, FIELD_ID),
+            field(TABLE_ORDER, FIELD_CUSTOMER_ID),
+            field(TABLE_ORDER, FIELD_CREATED),
+            field(TABLE_ORDER, FIELD_SHIP_DATE),
+            field(TABLE_ORDER, FIELD_STATUS),
+            `${TABLE_CUSTOMER}.${FIELD_NAME} as ${FIELD_CUSTOMER_NAME}`,
         );
     const productRows = await database(TABLE_ORDER_ITEM)
         .where(FIELD_ORDER_ID, orderId)
@@ -58,30 +63,27 @@ export async function ordersActive() {
         .whereNot(FIELD_STATUS, ORDER_STATUS_SHIPPED)
         .join(
             TABLE_CUSTOMER,
-            `${TABLE_ORDER}.${FIELD_CUSTOMER_ID}`,
+            field(TABLE_ORDER, FIELD_CUSTOMER_ID),
             '=',
-            `${TABLE_CUSTOMER}.${FIELD_ID}`,
+            field(TABLE_CUSTOMER, FIELD_ID),
         )
         .select(
-            `${TABLE_ORDER}.${FIELD_ID}`,
-            `${TABLE_ORDER}.${FIELD_CUSTOMER_ID}`,
-            `${TABLE_ORDER}.${FIELD_CREATED}`,
-            `${TABLE_ORDER}.${FIELD_SHIP_DATE}`,
-            `${TABLE_ORDER}.${FIELD_STATUS}`,
-            `${TABLE_CUSTOMER}.${FIELD_NAME} as customerName`,
+            field(TABLE_ORDER, FIELD_ID),
+            field(TABLE_ORDER, FIELD_CUSTOMER_ID),
+            field(TABLE_ORDER, FIELD_CREATED),
+            field(TABLE_ORDER, FIELD_SHIP_DATE),
+            field(TABLE_ORDER, FIELD_STATUS),
+            `${TABLE_CUSTOMER}.${FIELD_NAME} as ${FIELD_CUSTOMER_NAME}`,
         );
 }
 
 //-- Create New ----------------------------------
 export async function createOrder(orderData) {
     //
-    const now = new Date();
-    const dateString = `${now.getFullYear()}-${now.getMonth()}-${now.getDate()}`;
-    //
     const recordData = {
         [FIELD_CUSTOMER_ID]: orderData[FIELD_CUSTOMER_ID],
-        [FIELD_SHIP_DATE]: orderData[FIELD_SHIP_DATE],
-        [FIELD_CREATED]: dateString,
+        [FIELD_SHIP_DATE]: dateString(orderData[FIELD_SHIP_DATE]),
+        [FIELD_CREATED]: dateString(new Date()),
         [FIELD_STATUS]: ORDER_STATUS_OPEN,
     };
     const [orderId] = await database(TABLE_ORDER)
@@ -113,8 +115,8 @@ export async function updateOrder(orderId, orderData) {
     // Update order record
     const recordData = {
         [FIELD_CUSTOMER_ID]: orderData[FIELD_CUSTOMER_ID],
-        [FIELD_SHIP_DATE]: orderData[FIELD_SHIP_DATE],
-        [FIELD_CREATED]: orderData[FIELD_CREATED],
+        [FIELD_SHIP_DATE]: dateString(orderData[FIELD_SHIP_DATE]),
+        [FIELD_CREATED]: dateString(orderData[FIELD_CREATED]),
         // [FIELD_STATUS]: ORDER_STATUS_OPEN,
     };
     await database(TABLE_ORDER)

@@ -83,10 +83,18 @@ exports.up = function(knex) {
 //-- Delete Tables -------------------------------
 exports.down = function(knex) {
     return Promise.all([
+        knex.schema.table(TABLE_ORDER, table => {
+            table.dropForeign(FIELD_CUSTOMER_ID)
+        }),
+        knex.schema.table(TABLE_ORDER_ITEM, table => {
+            table.dropForeign(FIELD_ORDER_ID);
+            table.dropForeign(FIELD_SPECIES_ID);
+        }),
+    ]).then(() => Promise.all([
         knex.schema.dropTable(TABLE_SPECIES),
         knex.schema.dropTable(TABLE_CUSTOMER),
         knex.schema.dropTable(TABLE_ORDER),
         knex.schema.dropTable(TABLE_ORDER_ITEM),
-        knex.schema.dropTable(TABLE_USER), 
-    ]);
+        knex.schema.dropTable(TABLE_USER),
+    ]));
 };

@@ -24,6 +24,11 @@ export default function HeaderBar() {
     return (
         <nav className="headerbar">
             <Link
+                children="Schedule"
+                className="button"
+                to="/schedule"
+            />  
+            <Link
                 children="Orders"
                 className="button"
                 to="/order"

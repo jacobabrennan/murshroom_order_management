@@ -5,14 +5,16 @@
 //-- Dependencies --------------------------------
 import express from 'express';
 import {
-    speciesList, speciesCreate, speciesEdit,
+    speciesList,
+    speciesCreate,
+    speciesEdit,
 } from './data_access.js';
-
-//-- Project Constants ---------------------------
-const URL_SPECIES_LIST = '/all';
-const URL_SPECIES_NEW = '/';
-const URL_SPECIES_SINGLE = '/:id';
-const PARAM_SPECIES_ID = 'id';
+import {
+    URL_SPECIES_LIST,
+    URL_SPECIES_NEW,
+    URL_SPECIES_SINGLE,
+    PARAM_ID,
+} from '../utilities.js';
 
 //-- Export Router -------------------------------
 const router = express.Router();
@@ -37,7 +39,7 @@ router.post(URL_SPECIES_NEW, async function (request, response, next) {
 
 //------------------------------------------------
 router.post(URL_SPECIES_SINGLE, async function (request, response, next) {
-    const speciesId = parseInt(request.params[PARAM_SPECIES_ID]);
+    const speciesId = parseInt(request.params[PARAM_ID]);
     await speciesEdit(speciesId, request.body);
     response.json({id: speciesId});
 });

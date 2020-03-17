@@ -3,6 +3,7 @@
 
 #
 */secure
+server/knexfile.js
 
 # dependencies
 */node_modules
