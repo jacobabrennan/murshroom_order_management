@@ -66,7 +66,7 @@ export async function getWeekProduction(week) {
     }
     //
     return {
-        knockProducts: knockBlocks,
-        shipProducts: shipBlocks,
+        innoculate: knockBlocks,
+        ship: shipBlocks,
     };
 }

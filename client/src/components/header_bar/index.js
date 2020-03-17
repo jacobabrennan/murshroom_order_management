@@ -26,7 +26,7 @@ export default function HeaderBar() {
             <Link
                 children="Schedule"
                 className="button"
-                to="/schedule"
+                to="/"
             />  
             <Link
                 children="Orders"

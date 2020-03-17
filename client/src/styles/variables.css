@@ -1,0 +1,17 @@
+
+/*-- Variables ---------------------------------*/
+:root {
+    --color-copy: #000;
+    --color-field: #fff;
+    --color-backdrop: #eee;
+    --color-structure: #bbb;
+    --color-subdued: #888;
+    --color-primary: #08f;
+    --color-secondary: #8cf;
+    --color-danger: #f08;
+    --color-action: #4a4;
+    --radius-structure: 0.5rem;
+    --spacing-structure: 1rem;
+    --border-structure: 1px solid var(--color-structure);
+    --font-default: georgia, helvetica;
+}

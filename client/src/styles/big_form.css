@@ -1,0 +1,10 @@
+
+.big-form {
+    display: flex;
+    flex-direction: column;
+}
+.big-form label {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}

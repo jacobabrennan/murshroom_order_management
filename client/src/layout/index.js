@@ -17,8 +17,7 @@ import {
 } from '../species/index.js';
 import ViewCustomer from '../customer/index.js';
 import ViewOrder from '../order/index.js';
-import './client.css';
-import './button.css';
+import './layout.css';
 
 //-- React Component -----------------------------
 export default function Client() {
@@ -40,7 +39,7 @@ export default function Client() {
                         <Route path="/customer">
                             <ViewCustomer />
                         </Route>
-                        <Route>
+                        <Route path="/">
                             {/* <ViewNotFound /> */}
                         </Route>
                     </Switch>

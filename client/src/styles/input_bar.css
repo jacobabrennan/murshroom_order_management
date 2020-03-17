@@ -1,0 +1,11 @@
+
+.input-bar {
+    display: flex;
+    width: 100%;
+}
+.input-bar label span {
+    font-size: 2rem;
+}
+.input-bar input {
+    flex-grow: 1;
+}

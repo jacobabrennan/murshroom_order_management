@@ -33,6 +33,7 @@ const FIELD_CUSTOMER_NAME = 'customerName';
 
 //-- Get One -------------------------------------
 export async function getOrder(orderId) {
+    //
     const order = await database(TABLE_ORDER)
         .where(field(TABLE_ORDER, FIELD_ID), orderId)
         .first()
@@ -50,16 +51,21 @@ export async function getOrder(orderId) {
             field(TABLE_ORDER, FIELD_STATUS),
             `${TABLE_CUSTOMER}.${FIELD_NAME} as ${FIELD_CUSTOMER_NAME}`,
         );
-    const productRows = await database(TABLE_ORDER_ITEM)
+    // Remove timestamp from dates
+    order[FIELD_SHIP_DATE] = dateString(order[FIELD_SHIP_DATE]);
+    order[FIELD_CREATED] = dateString(order[FIELD_CREATED]);
+    //
+    order.products = await database(TABLE_ORDER_ITEM)
         .where(FIELD_ORDER_ID, orderId)
         .select('*');
-    order.products = productRows;
+    //
     return order;
 }
 
 //-- Get All Active ------------------------------
 export async function ordersActive() {
-    return database(TABLE_ORDER)
+    //
+    const orders = await database(TABLE_ORDER)
         .whereNot(FIELD_STATUS, ORDER_STATUS_SHIPPED)
         .join(
             TABLE_CUSTOMER,
@@ -75,6 +81,13 @@ export async function ordersActive() {
             field(TABLE_ORDER, FIELD_STATUS),
             `${TABLE_CUSTOMER}.${FIELD_NAME} as ${FIELD_CUSTOMER_NAME}`,
         );
+    // Remove timestamp from dates
+    for(const order of orders) {
+        order[FIELD_SHIP_DATE] = dateString(order[FIELD_SHIP_DATE]);
+        order[FIELD_CREATED] = dateString(order[FIELD_CREATED]);
+    }
+    //
+    return orders;
 }
 
 //-- Create New ----------------------------------
