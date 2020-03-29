@@ -1,0 +1,31 @@
+
+.week {
+    border: var(--border-structure);
+    padding: var(--spacing-structure);
+    border-radius: var(--radius-structure);
+    margin-bottom: var(--spacing-structure);
+}
+.schedule__table thead {
+    border-bottom: var(--border-structure);
+}
+/* .schedule__table tbody:nth-child(odd) {
+} */
+.schedule__table td, .schedule__table th {
+    padding-top: calc(var(--spacing-structure)/2);
+    padding-bottom: calc(var(--spacing-structure)/2);
+}
+.schedule__table td, .schedule__table th {
+    text-align: center;
+}
+.schedule__table th {
+    padding-left: var(--spacing-structure);
+    padding-right: var(--spacing-structure);
+}
+.schedule__orders tbody {
+    cursor: pointer;
+    border: var(--border-structure);
+    border-width: 1px 0px;
+}
+.schedule__orders tbody:hover {
+    background: var(--color-field);
+}

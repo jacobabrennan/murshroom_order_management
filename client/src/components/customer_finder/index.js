@@ -17,7 +17,9 @@ export default function CustomerFinder({onSelect}) {
     // Interaction handlers
     async function handleSubmit(eventSubmit) {
         // Prevent page refresh / default form submission behavior
-        eventSubmit.preventDefault();
+        if(eventSubmit) {
+            eventSubmit.preventDefault();
+        }
         // Disable controls while loading
         refButton.current.disabled = true;
         refInput.current.disabled = true;
@@ -29,6 +31,11 @@ export default function CustomerFinder({onSelect}) {
         refInput.current.value = null;
         refInput.current.disabled = false;
         refButton.current.disabled = false;
+    }
+    async function handleKeyUp(eventKeyUp) {
+        if(eventKeyUp.key === "Enter") {
+            handleSubmit();
+        }
     }
     // Prep JSX for results display
     let resultsDisplay = '';
@@ -56,7 +63,12 @@ export default function CustomerFinder({onSelect}) {
             <label>
                 <div className="customer-finder__prompt">Customer Number or Name</div>
                 <div className="input-bar">
-                    <input ref={refInput} name="query" type="text" />
+                    <input
+                        ref={refInput}
+                        name="query"
+                        type="text"
+                        onKeyUp={handleKeyUp}
+                    />
                     <button
                         ref={refButton}
                         className="button"

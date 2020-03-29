@@ -15,7 +15,7 @@ import {
 //------------------------------------------------
 export async function customerSearch(query) {
     return database(TABLE_CUSTOMER)
-        .where(FIELD_NAME, 'like', `%${query}%`)
+        .where(FIELD_NAME, 'ILIKE', `%${query}%`)
         .select('*');
 }
 

@@ -15,6 +15,7 @@ server/knexfile.js
 
 # production
 /build
+/server/public/build
 
 # misc
 .DS_Store

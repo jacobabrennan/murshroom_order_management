@@ -17,6 +17,7 @@ import {
 } from '../species/index.js';
 import ViewCustomer from '../customer/index.js';
 import ViewOrder from '../order/index.js';
+import ViewSchedule from '../schedule/index.js';
 import './layout.css';
 
 //-- React Component -----------------------------
@@ -40,7 +41,7 @@ export default function Client() {
                             <ViewCustomer />
                         </Route>
                         <Route path="/">
-                            {/* <ViewNotFound /> */}
+                            <ViewSchedule />
                         </Route>
                     </Switch>
                 </SpeciesData>

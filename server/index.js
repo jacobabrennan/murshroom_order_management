@@ -13,9 +13,9 @@ import dataApi from './data_api/index.js';
 //-- Project Constants ---------------------------
 const PORT = 7231;
 const SERVER_LISTEN_MESSAGE = `Server started on port ${PORT}`;
-const PATH_STATIC = 'public';
+const PATH_STATIC = 'public/build';
 const URL_AUTHENTICATION = '/auth';
-const URL_STATIC = '/rsc';
+const URL_STATIC = '/';
 const URL_DATA_API = '/data';
 
 //-- Create and Configure Server------------------

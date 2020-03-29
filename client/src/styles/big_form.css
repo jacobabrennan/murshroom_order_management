@@ -8,3 +8,6 @@
     flex-direction: column;
     margin-bottom: 1rem;
 }
+.big-form input {
+    width: 100%;
+}

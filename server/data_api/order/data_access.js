@@ -6,7 +6,8 @@
 import database from '../../database/index.js';
 import {
     field,
-    dateString,
+    dateToString,
+    dateStringFix,
     TABLE_ORDER,
     TABLE_ORDER_ITEM,
     TABLE_CUSTOMER,
@@ -24,7 +25,7 @@ import {
     ORDER_STATUS_SHIPPED,
     ORDER_STATUS_PAID,
 } from '../utilities.js';
-dateString
+
 //-- Project Constants ---------------------------
 const FIELD_CUSTOMER_NAME = 'customerName';
 
@@ -52,8 +53,8 @@ export async function getOrder(orderId) {
             `${TABLE_CUSTOMER}.${FIELD_NAME} as ${FIELD_CUSTOMER_NAME}`,
         );
     // Remove timestamp from dates
-    order[FIELD_SHIP_DATE] = dateString(order[FIELD_SHIP_DATE]);
-    order[FIELD_CREATED] = dateString(order[FIELD_CREATED]);
+    order[FIELD_SHIP_DATE] = dateToString(order[FIELD_SHIP_DATE]);
+    order[FIELD_CREATED] = dateToString(order[FIELD_CREATED]);
     //
     order.products = await database(TABLE_ORDER_ITEM)
         .where(FIELD_ORDER_ID, orderId)
@@ -83,8 +84,8 @@ export async function ordersActive() {
         );
     // Remove timestamp from dates
     for(const order of orders) {
-        order[FIELD_SHIP_DATE] = dateString(order[FIELD_SHIP_DATE]);
-        order[FIELD_CREATED] = dateString(order[FIELD_CREATED]);
+        order[FIELD_SHIP_DATE] = dateToString(order[FIELD_SHIP_DATE]);
+        order[FIELD_CREATED] = dateToString(order[FIELD_CREATED]);
     }
     //
     return orders;
@@ -95,12 +96,14 @@ export async function createOrder(orderData) {
     //
     const recordData = {
         [FIELD_CUSTOMER_ID]: orderData[FIELD_CUSTOMER_ID],
-        [FIELD_SHIP_DATE]: dateString(orderData[FIELD_SHIP_DATE]),
-        [FIELD_CREATED]: dateString(new Date()),
+        [FIELD_SHIP_DATE]: dateStringFix(orderData[FIELD_SHIP_DATE]),
+        [FIELD_CREATED]: dateToString(new Date()),
         [FIELD_STATUS]: ORDER_STATUS_OPEN,
     };
-    const [orderId] = await database(TABLE_ORDER)
-        .insert(recordData);
+    const result = await database(TABLE_ORDER)
+        .insert(recordData)
+        .returning([FIELD_ID]);
+    const orderId = result[0][FIELD_ID];
     //
     if(!orderId) { throw "Can't get orderId"}
     try {
@@ -128,8 +131,7 @@ export async function updateOrder(orderId, orderData) {
     // Update order record
     const recordData = {
         [FIELD_CUSTOMER_ID]: orderData[FIELD_CUSTOMER_ID],
-        [FIELD_SHIP_DATE]: dateString(orderData[FIELD_SHIP_DATE]),
-        [FIELD_CREATED]: dateString(orderData[FIELD_CREATED]),
+        [FIELD_SHIP_DATE]: dateStringFix(orderData[FIELD_SHIP_DATE]),
         // [FIELD_STATUS]: ORDER_STATUS_OPEN,
     };
     await database(TABLE_ORDER)

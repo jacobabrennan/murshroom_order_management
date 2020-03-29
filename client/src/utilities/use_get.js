@@ -17,9 +17,9 @@ export default function useGet(url) {
         refetch: null,
     });
     useEffect(function () {
-        function doGet() {
-            console.log('Fetching', url)
-            fetch(url)
+        function doGet(newUrl=url) {
+            console.log('Fetching', newUrl)
+            fetch(newUrl)
                 .then(async function (httpResponse) {
                     if(!httpResponse.ok) { throw httpResponse.status;}
                     let responseData = null;

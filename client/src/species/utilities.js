@@ -10,7 +10,7 @@ export const API_SPECIES_ALL = '/data/species/all';
 //-- Routing URLs, and Parameters ----------------
 export const ROUTE_SPECIES_BASE = '/species';
 export const ROUTE_SPECIES_NEW = '/species/new';
-export const ROUTE_SPECIES_EDIT = '/species/edit';
+export const ROUTE_SPECIES_EDIT = '/species';
 export const PARAM_ID = 'id';
 
 //-- Error Messages ------------------------------
@@ -18,7 +18,7 @@ export const INVALID_NO_CODE = 'You must provide a product code.';
 export const INVALID_NO_SPECIES = 'You must provide a species.';
 export const INVALID_NO_STRAIN = 'You must provide a strain.';
 export const INVALID_NO_FORMAT = 'You must provide a substrait format (weight).';
-export const INVALID_NO_AMOUNT = 'You must specify the number of blocks per innoculation.';
+export const INVALID_NO_AMOUNT = 'You must specify the number of blocks per inoculation.';
 export const INVALID_NO_TIME = 'You must provide the colonization time.';
 
 //-- Form Validation -----------------------------
