@@ -3,12 +3,14 @@
 //== Project Constants =========================================================
 
 //-- API URLs ------------------------------------
-export const API_SCHEDULE_WEEK = '/data/schedule';
-export const PARAM_WEEK = 'week';
+export { API_SCHEDULE_WEEK } from '../utilities/urls_api.js';
+export { PARAM_WEEK } from '../utilities/urls_params.js';
 
 //-- Route URLS ----------------------------------
-export const ROUTE_ORDER_BASE = '/order';
-export const ROUTE_SPECIES_BASE = '/species';
+export {
+    ROUTE_ORDER_BASE,
+    ROUTE_SPECIES_BASE,
+} from '../utilities/urls_routing.js';
 
 //-- Date Manipulation ---------------------------
 const DATE_REGEX = /([0-9]{4})-([0-9]{2})-([0-9]{2})/;

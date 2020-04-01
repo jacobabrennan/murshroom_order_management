@@ -6,7 +6,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import usePost from '../utilities/use_post.js';
-import { URL_AUTH_REGISTER } from './index.js';
+import { URL_AUTH_REGISTER } from '../utilities/urls_api.js';
 
 //-- React Component -----------------------------
 export default function ViewRegister({ onLogin }) {

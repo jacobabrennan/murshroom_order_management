@@ -6,7 +6,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import usePost from '../utilities/use_post.js';
-import { URL_AUTH_LOGIN } from './index.js';
+import { URL_AUTH_LOGIN } from '../utilities/urls_api.js';
 
 //-- Log In Form ---------------------------------
 export default function ViewLogin({ onLogin }) {

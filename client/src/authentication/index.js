@@ -27,12 +27,12 @@ import useGet from '../utilities/use_get';
 import ViewRegister from './view_registration.js';
 import ViewLogin from './view_login.js';
 import Loading from '../components/loading/index.js';
+import {
+    URL_AUTH_LOGIN,
+    URL_AUTH_REGISTER,
+    URL_AUTH_LOGOUT,
+} from '../utilities/urls_api.js';
 import './index.css';
-
-//-- Project Constants ---------------------------
-export const URL_AUTH_LOGIN = '/auth/login';
-export const URL_AUTH_REGISTER = '/auth/register';
-export const URL_AUTH_LOGOUT = '/auth/logout';
 
 //-- Authentication Context ----------------------
 const authenticationContext = createContext({
