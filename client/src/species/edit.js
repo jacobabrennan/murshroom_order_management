@@ -10,7 +10,7 @@ import speciesContext from './index.js';
 import Loading from '../components/loading/index.js';
 import useFeedback from '../utilities/use_feedback.js';
 import {
-    API_SPECIES_EDIT,
+    MAKEURL_API_SPECIES_EDIT,
     ROUTE_SPECIES_BASE,
     validateForm,
     PARAM_ID,
@@ -23,7 +23,7 @@ export default function ViewEdit() {
     const formRef = useRef();
     const history = useHistory();
     const id = useParams()[PARAM_ID];
-    const [response, triggerPost] = usePost(`${API_SPECIES_EDIT}/${id}`);
+    const [response, triggerPost] = usePost(MAKEURL_API_SPECIES_EDIT(id));
     //
     async function submitHandler(eventSubmit) {
         //

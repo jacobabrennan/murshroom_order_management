@@ -10,6 +10,7 @@ export {
     API_ORDER_ACTIVE,
     API_ORDER_NEW,
     API_ORDER_SINGLE,
+    MAKEURL_API_ORDER_SINGLE,
 } from '../utilities/urls_api.js';
 
 //-- Routing URLs, and Parameters ----------------
@@ -18,6 +19,7 @@ export {
     ROUTE_ORDER_NEW,
     ROUTE_ORDER_SINGLE,
     ROUTE_ORDER_EDIT,
+    MAKEURL_ROUTE_ORDER_SINGLE,
 } from '../utilities/urls_routing.js';
 
 //-- Error Messages ------------------------------

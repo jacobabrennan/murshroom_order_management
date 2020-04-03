@@ -8,7 +8,7 @@ import speciesContext from './index.js';
 import { Link, useHistory } from 'react-router-dom';
 import {
     ROUTE_SPECIES_NEW,
-    ROUTE_SPECIES_EDIT,
+    MAKEURL_ROUTE_SPECIES_EDIT,
 } from './utilities.js';
 
 //------------------------------------------------
@@ -45,7 +45,8 @@ export default function ViewAll() {
 function Species({species}) {
     const history = useHistory();
     function handleClick() {
-        history.push(`${ROUTE_SPECIES_EDIT}/${species.id}`);
+        const editUrl = MAKEURL_ROUTE_SPECIES_EDIT(species.id);
+        history.push(editUrl);
     }
     return (
         <tr className="species-list__species" onClick={handleClick}>

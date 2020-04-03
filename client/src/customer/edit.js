@@ -13,7 +13,7 @@ import {
     ROUTE_CUSTOMER_BASE,
     INVALID_NO_NAME,
     INVALID_NO_LOCATION,
-    API_CUSTOMER_SUBMIT,
+    MAKEURL_API_CUSTOMER_SUBMIT,
     PARAM_ID,
 } from './utilities.js';
 
@@ -22,7 +22,7 @@ export default function ViewEdit() {
     const formRef = useRef();
     const history = useHistory();
     const id = useParams()[PARAM_ID];
-    const customerUrl = `${API_CUSTOMER_SUBMIT}/${id}`;
+    const customerUrl = MAKEURL_API_CUSTOMER_SUBMIT(id);
     const response = useGet(customerUrl)
     const [warnings, feedback] = useFeedback();
     const [postResponse, triggerPost] = usePost(customerUrl);

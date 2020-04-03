@@ -6,7 +6,7 @@
 import React, { useRef } from 'react';
 import useGetDelayed from '../../utilities/use_get_delayed.js';
 import Loading from '../loading/index.js';
-import { API_CUSTOMER_SEARCH } from '../../customer/utilities.js';
+import { MAKEURL_API_CUSTOMER_SEARCH } from '../../customer/utilities.js';
 import './customer_finder.css';
 
 //-- Main Component ------------------------------
@@ -25,7 +25,7 @@ export default function CustomerFinder({onSelect}) {
         refInput.current.disabled = true;
         // Request customer suggestions from server
         const query = refInput.current.value;
-        const fetchUrl = `${API_CUSTOMER_SEARCH}?query=${query}`;
+        const fetchUrl = MAKEURL_API_CUSTOMER_SEARCH(query);
         await response.fetch(fetchUrl);
         // Re-enable and clear controls and 
         refInput.current.value = null;

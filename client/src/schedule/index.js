@@ -9,7 +9,6 @@ import {
     weekStart,
     dateToString,
     stringToDate,
-    PARAM_WEEK,
     API_SCHEDULE_WEEK,
     ROUTE_ORDER_BASE,
 } from './utilities.js';
@@ -30,7 +29,7 @@ export default function ViewSchedule() {
         const newDate = stringToDate(eventChange.currentTarget.value);
         const monday = weekStart(newDate);
         setViewWeek(monday);
-        response.refetch(`${API_SCHEDULE_WEEK}?${PARAM_WEEK}=${dateToString(monday)}`);
+        response.refetch(MAKEURL_API_SCHEDULE_WEEK(dateToString(monday)));
     }
     //
     let contents = null;

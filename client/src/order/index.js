@@ -31,7 +31,7 @@ export default function ViewOrder() {
                 <ViewNew />
             </Route>
             <Route path={`${ROUTE_ORDER_SINGLE}/:${PARAM_ID}`} exact>
-                <ViewSingle />
+                <ViewEdit />
             </Route>
             <Route path={`${ROUTE_ORDER_EDIT}/:${PARAM_ID}`} exact>
                 <ViewEdit />

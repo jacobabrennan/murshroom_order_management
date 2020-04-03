@@ -6,12 +6,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import usePost from '../utilities/use_post.js';
-import { URL_AUTH_REGISTER } from '../utilities/urls_api.js';
+import { API_AUTH_REGISTER } from '../utilities/urls_api.js';
+import { ROUTE_AUTH_LOGIN } from '../utilities/urls_routing.js';
 
 //-- React Component -----------------------------
 export default function ViewRegister({ onLogin }) {
     // Prepare API http request
-    const [, triggerPost] = usePost(URL_AUTH_REGISTER);
+    const [, triggerPost] = usePost(API_AUTH_REGISTER);
     // Submit interaction handler
     async function handleSubmit(eventSubmit) {
         eventSubmit.preventDefault();
@@ -46,7 +47,7 @@ export default function ViewRegister({ onLogin }) {
                     <button className="button" type="submit" children="Submit" />
                     <Link
                         className="button secondary"
-                        to="/auth/login"
+                        to={ROUTE_AUTH_LOGIN}
                         children="Log in"
                     />
                 </div>

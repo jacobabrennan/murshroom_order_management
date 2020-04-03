@@ -10,14 +10,14 @@ import {
 import CustomerFinder from '../components/customer_finder/index.js';
 import {
     ROUTE_CUSTOMER_NEW,
-    ROUTE_CUSTOMER_EDIT,
+    MAKEURL_ROUTE_CUSTOMER_EDIT,
 } from './utilities.js';
 
 //------------------------------------------------
 export default function ViewCustomerFinder() {
     const history = useHistory();
     function handleSelect(customer) {
-        const customerUrl = `${ROUTE_CUSTOMER_EDIT}/${customer.id}`;
+        const customerUrl = MAKEURL_ROUTE_CUSTOMER_EDIT(customer.id);
         history.push(customerUrl);
     }
     return (

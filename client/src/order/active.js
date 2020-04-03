@@ -10,7 +10,7 @@ import useGet from '../utilities/use_get.js';
 import {
     ROUTE_ORDER_NEW,
     API_ORDER_ACTIVE,
-    ROUTE_ORDER_SINGLE,
+    MAKEURL_ROUTE_ORDER_SINGLE,
 } from './utilities.js';
 
 //------------------------------------------------
@@ -54,7 +54,7 @@ export default function ViewActive() {
 function Order({order}) {
     const history = useHistory();
     function handleClick() {
-        const orderUrl = `${ROUTE_ORDER_SINGLE}/${order.id}`;
+        const orderUrl = MAKEURL_ROUTE_ORDER_SINGLE(order.id);
         history.push(orderUrl);
     }
     return (

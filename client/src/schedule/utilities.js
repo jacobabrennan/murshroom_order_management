@@ -3,8 +3,10 @@
 //== Project Constants =========================================================
 
 //-- API URLs ------------------------------------
-export { API_SCHEDULE_WEEK } from '../utilities/urls_api.js';
-export { PARAM_WEEK } from '../utilities/urls_params.js';
+export {
+    API_SCHEDULE_WEEK,
+    MAKEURL_API_SCHEDULE_WEEK,
+} from '../utilities/urls_api.js';
 
 //-- Route URLS ----------------------------------
 export {

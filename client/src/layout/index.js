@@ -18,6 +18,13 @@ import {
 import ViewCustomer from '../customer/index.js';
 import ViewOrder from '../order/index.js';
 import ViewSchedule from '../schedule/index.js';
+import {
+    ROUTE_AUTH_BASE,
+    ROUTE_ORDER_BASE,
+    ROUTE_SPECIES_BASE,
+    ROUTE_CUSTOMER_BASE,
+    ROUTE_SCHEDULE_BASE,
+} from '../utilities/urls_routing.js';
 import './layout.css';
 
 //-- React Component -----------------------------
@@ -28,19 +35,19 @@ export default function Client() {
             <div className="page">
                 <SpeciesData>
                     <Switch>
-                        <Route path="/auth">
+                        <Route path={ROUTE_AUTH_BASE}>
                             <Redirect to="/" />
                         </Route>
-                        <Route path="/order">
+                        <Route path={ROUTE_ORDER_BASE}>
                             <ViewOrder />
                         </Route>
-                        <Route path="/species">
+                        <Route path={ROUTE_SPECIES_BASE}>
                             <ViewSpecies />
                         </Route>
-                        <Route path="/customer">
+                        <Route path={ROUTE_CUSTOMER_BASE}>
                             <ViewCustomer />
                         </Route>
-                        <Route path="/">
+                        <Route path={ROUTE_SCHEDULE_BASE}>
                             <ViewSchedule />
                         </Route>
                     </Switch>

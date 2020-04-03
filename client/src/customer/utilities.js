@@ -7,8 +7,9 @@ export { PARAM_ID } from '../utilities/urls_params.js';
 
 //-- API URLs ------------------------------------
 export {
-    API_CUSTOMER_SEARCH,
     API_CUSTOMER_SUBMIT,
+    MAKEURL_API_CUSTOMER_SEARCH,
+    MAKEURL_API_CUSTOMER_SUBMIT,
  } from '../utilities/urls_api.js';
 
 //-- Routing URLs --------------------------------
@@ -16,6 +17,7 @@ export {
     ROUTE_CUSTOMER_BASE,
     ROUTE_CUSTOMER_NEW,
     ROUTE_CUSTOMER_EDIT,
+    MAKEURL_ROUTE_CUSTOMER_EDIT,
 } from '../utilities/urls_routing.js';
 
 //-- Error Messages ------------------------------

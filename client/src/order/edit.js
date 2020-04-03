@@ -9,14 +9,14 @@ import useGet from '../utilities/use_get.js';
 import Loading from '../components/loading/index.js';
 import OrderForm from './order_form/index.js';
 import {
-    API_ORDER_SINGLE,
+    MAKEURL_API_ORDER_SINGLE,
     PARAM_ID,
 } from './utilities.js';
 
 //------------------------------------------------
 export default function ViewEdit() {
     const id = useParams()[PARAM_ID];
-    const orderUrl = `${API_ORDER_SINGLE}/${id}`;
+    const orderUrl = MAKEURL_API_ORDER_SINGLE(id);
     const response = useGet(orderUrl);
     //
     if(response.loading) {

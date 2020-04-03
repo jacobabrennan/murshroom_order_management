@@ -6,12 +6,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import usePost from '../utilities/use_post.js';
-import { URL_AUTH_LOGIN } from '../utilities/urls_api.js';
+import { API_AUTH_LOGIN } from '../utilities/urls_api.js';
+import { ROUTE_AUTH_REGISTER } from '../utilities/urls_routing.js';
 
 //-- Log In Form ---------------------------------
 export default function ViewLogin({ onLogin }) {
     // Attempt to login with server
-    const [response, triggerPost] = usePost(URL_AUTH_LOGIN);
+    const [response, triggerPost] = usePost(API_AUTH_LOGIN);
     // Submit interaction handler
     async function handleSubmit(eventSubmit) {
         eventSubmit.preventDefault();
@@ -45,7 +46,7 @@ export default function ViewLogin({ onLogin }) {
                     <button className="button" type="submit" children="Submit" />
                     <Link
                         className="button secondary"
-                        to="/auth/register"
+                        to={ROUTE_AUTH_REGISTER}
                         children="Register"
                     />
                 </div>

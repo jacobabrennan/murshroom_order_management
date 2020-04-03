@@ -28,10 +28,13 @@ import ViewRegister from './view_registration.js';
 import ViewLogin from './view_login.js';
 import Loading from '../components/loading/index.js';
 import {
-    URL_AUTH_LOGIN,
-    URL_AUTH_REGISTER,
-    URL_AUTH_LOGOUT,
+    API_AUTH_LOGIN,
+    API_AUTH_LOGOUT,
 } from '../utilities/urls_api.js';
+import {
+    ROUTE_AUTH_LOGIN,
+    ROUTE_AUTH_REGISTER,
+} from '../utilities/urls_routing.js';
 import './index.css';
 
 //-- Authentication Context ----------------------
@@ -43,8 +46,8 @@ export default authenticationContext;
 //-- React Component -----------------------------
 export function Authenticate({ children }) {
     // Query server for authentication data
-    const response = useGet(URL_AUTH_LOGIN);
-    const [, triggerLogout] = usePost(URL_AUTH_LOGOUT);
+    const response = useGet(API_AUTH_LOGIN);
+    const [, triggerLogout] = usePost(API_AUTH_LOGOUT);
     //
     if(response.error) {
         return `Error: ${response.error}`;
@@ -78,14 +81,14 @@ export function Authenticate({ children }) {
     // Display authentication subclient
     return (
         <Switch>
-            <Route exact path={URL_AUTH_LOGIN}>
+            <Route exact path={ROUTE_AUTH_LOGIN}>
                 <ViewLogin onLogin={response.refetch} />
             </Route>
-            <Route exact path={URL_AUTH_REGISTER}>
+            <Route exact path={ROUTE_AUTH_REGISTER}>
                 <ViewRegister onLogin={response.refetch} />
             </Route>
             <Route path="/">
-                <Redirect to={URL_AUTH_LOGIN} />
+                <Redirect to={ROUTE_AUTH_LOGIN} />
             </Route>
         </Switch>
     );
