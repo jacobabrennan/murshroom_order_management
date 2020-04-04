@@ -9,12 +9,12 @@ import Loading from '../components/loading/index.js';
 import usePost from '../utilities/use_post.js';
 import useGet from '../utilities/use_get.js';
 import useFeedback from '../utilities/use_feedback.js';
+import { PARAM_ID } from '../utilities/urls_params.js';
+import { ROUTE_CUSTOMER_BASE } from '../utilities/urls_routing.js';
+import { MAKEURL_API_CUSTOMER_SUBMIT } from '../utilities/urls_api.js';
 import {
-    ROUTE_CUSTOMER_BASE,
     INVALID_NO_NAME,
     INVALID_NO_LOCATION,
-    MAKEURL_API_CUSTOMER_SUBMIT,
-    PARAM_ID,
 } from './utilities.js';
 
 //------------------------------------------------

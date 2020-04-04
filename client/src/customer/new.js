@@ -7,9 +7,9 @@ import React, { useRef } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import usePost from '../utilities/use_post.js';
 import useFeedback from '../utilities/use_feedback.js';
+import { API_CUSTOMER_SUBMIT } from '../utilities/urls_api.js';
+import { ROUTE_CUSTOMER_BASE } from '../utilities/urls_routing.js';
 import {
-    API_CUSTOMER_SUBMIT,
-    ROUTE_CUSTOMER_BASE,
     INVALID_NO_NAME,
     INVALID_NO_LOCATION,
 } from './utilities';

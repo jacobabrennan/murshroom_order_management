@@ -11,7 +11,7 @@ import CustomerFinder from '../components/customer_finder/index.js';
 import {
     ROUTE_CUSTOMER_NEW,
     MAKEURL_ROUTE_CUSTOMER_EDIT,
-} from './utilities.js';
+} from '../utilities/urls_routing.js';
 
 //------------------------------------------------
 export default function ViewCustomerFinder() {

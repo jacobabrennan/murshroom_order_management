@@ -11,12 +11,12 @@ import {
 import ViewCustomerFinder from './finder.js';
 import ViewNew from './new.js';
 import ViewEdit from './edit.js';
+import { PARAM_ID } from '../utilities/urls_params.js';
 import {
     ROUTE_CUSTOMER_BASE,
     ROUTE_CUSTOMER_NEW,
     ROUTE_CUSTOMER_EDIT,
-    PARAM_ID,
-} from './utilities.js';
+} from '../utilities/urls_routing.js';
 
 //------------------------------------------------
 export default function ViewCustomer() {
