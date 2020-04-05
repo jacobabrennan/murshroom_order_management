@@ -5,9 +5,8 @@
 //-- Dependencies --------------------------------
 import React from 'react';
 import OrderForm from './order_form/index.js';
-import {
-    API_ORDER_NEW,
-} from './utilities.js';
+import { API_ORDER_NEW } from '../utilities/urls_api.js';
+
 //------------------------------------------------
 export default function ViewNew() {
     const orderUrl = API_ORDER_NEW;

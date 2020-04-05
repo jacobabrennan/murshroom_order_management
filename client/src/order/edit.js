@@ -8,10 +8,8 @@ import { useParams } from 'react-router-dom';
 import useGet from '../utilities/use_get.js';
 import Loading from '../components/loading/index.js';
 import OrderForm from './order_form/index.js';
-import {
-    MAKEURL_API_ORDER_SINGLE,
-    PARAM_ID,
-} from './utilities.js';
+import { PARAM_ID } from '../utilities/urls_params.js';
+import { MAKEURL_API_ORDER_SINGLE } from '../utilities/urls_api.js';
 
 //------------------------------------------------
 export default function ViewEdit() {

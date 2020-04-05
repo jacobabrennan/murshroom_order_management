@@ -9,9 +9,9 @@ import Loading from '../components/loading/index.js';
 import useGet from '../utilities/use_get.js';
 import {
     ROUTE_ORDER_NEW,
-    API_ORDER_ACTIVE,
     MAKEURL_ROUTE_ORDER_SINGLE,
-} from './utilities.js';
+} from '../utilities/urls_routing.js';
+import { API_ORDER_ACTIVE } from '../utilities/urls_api.js';
 
 //------------------------------------------------
 export default function ViewActive() {

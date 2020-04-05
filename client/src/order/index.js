@@ -9,13 +9,13 @@ import ViewActive from './active.js';
 import ViewNew from './new.js';
 import ViewEdit from './edit.js';
 import ViewSingle from './single.js';
+import { PARAM_ID } from '../utilities/urls_params.js';
 import {
     ROUTE_ORDER_BASE,
     ROUTE_ORDER_NEW,
     ROUTE_ORDER_SINGLE,
     ROUTE_ORDER_EDIT,
-    PARAM_ID,
-} from './utilities.js';
+} from '../utilities/urls_routing.js';
 import './order.css';
 
 //-- Project Constants ---------------------------
