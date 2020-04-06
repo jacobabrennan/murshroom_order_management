@@ -5,15 +5,15 @@
 //-- Dependencies --------------------------------
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import useGet from '../utilities/use_get.js';
+import Loading from '../components/loading/index.js';
 import {
     weekStart,
     dateToString,
     stringToDate,
-    API_SCHEDULE_WEEK,
-    ROUTE_ORDER_BASE,
 } from './utilities.js';
-import useGet from '../utilities/use_get.js';
-import Loading from '../components/loading/index.js';
+import { API_SCHEDULE_WEEK } from '../utilities/urls_api.js';
+import { ROUTE_ORDER_BASE } from '../utilities/urls_routing.js';
 import './schedule.css';
 
 //------------------------------------------------
