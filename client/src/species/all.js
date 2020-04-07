@@ -9,7 +9,7 @@ import { Link, useHistory } from 'react-router-dom';
 import {
     ROUTE_SPECIES_NEW,
     MAKEURL_ROUTE_SPECIES_EDIT,
-} from './utilities.js';
+} from '../utilities/urls_routing.js';
 
 //------------------------------------------------
 export default function ViewAll() {

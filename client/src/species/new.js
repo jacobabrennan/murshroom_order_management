@@ -9,11 +9,9 @@ import speciesContext from '.';
 import Loading from '../components/loading';
 import usePost from '../utilities/use_post';
 import useFeedback from '../utilities/use_feedback';
-import {
-    API_SPECIES_NEW,
-    ROUTE_SPECIES_BASE,
-    validateForm,
-} from './utilities.js';
+import { API_SPECIES_NEW } from '../utilities/urls_api.js';
+import { ROUTE_SPECIES_BASE } from '../utilities/urls_routing.js';
+import { validateForm } from './utilities.js';
 
 //------------------------------------------------
 export default function ViewNew() {

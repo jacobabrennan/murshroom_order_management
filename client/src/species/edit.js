@@ -9,12 +9,10 @@ import usePost from '../utilities/use_post.js';
 import speciesContext from './index.js';
 import Loading from '../components/loading/index.js';
 import useFeedback from '../utilities/use_feedback.js';
-import {
-    MAKEURL_API_SPECIES_EDIT,
-    ROUTE_SPECIES_BASE,
-    validateForm,
-    PARAM_ID,
-} from './utilities.js';
+import { MAKEURL_API_SPECIES_EDIT } from '../utilities/urls_api.js';
+import { ROUTE_SPECIES_BASE } from '../utilities/urls_routing.js';
+import { PARAM_ID } from '../utilities/urls_params.js';
+import { validateForm } from './utilities.js';
 
 //------------------------------------------------
 export default function ViewEdit() {

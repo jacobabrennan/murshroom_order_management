@@ -2,25 +2,6 @@
 
 //== Project Constants =========================================================
 
-//-- URL Parameters ------------------------------
-export { PARAM_ID } from '../utilities/urls_params.js';
-
-//-- API URLs ------------------------------------
-export {
-    API_SPECIES_NEW,
-    API_SPECIES_EDIT,
-    API_SPECIES_ALL,
-    MAKEURL_API_SPECIES_EDIT,
-} from '../utilities/urls_api.js';
-
-//-- Routing URLs, and Parameters ----------------
-export {
-    ROUTE_SPECIES_BASE,
-    ROUTE_SPECIES_NEW,
-    ROUTE_SPECIES_EDIT,
-    MAKEURL_ROUTE_SPECIES_EDIT,
-} from '../utilities/urls_routing.js';
-
 //-- Error Messages ------------------------------
 export const INVALID_NO_CODE = 'You must provide a product code.';
 export const INVALID_NO_SPECIES = 'You must provide a species.';

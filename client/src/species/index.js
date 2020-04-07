@@ -11,12 +11,12 @@ import ViewAll from './all';
 import ViewEdit from './edit.js';
 import Loading from '../components/loading/index.js';
 import {
-    API_SPECIES_ALL,
-    PARAM_ID,
     ROUTE_SPECIES_BASE,
     ROUTE_SPECIES_NEW,
     ROUTE_SPECIES_EDIT,
-} from './utilities.js';
+} from '../utilities/urls_routing.js';
+import { API_SPECIES_ALL } from '../utilities/urls_api.js';
+import { PARAM_ID } from '../utilities/urls_params.js';
 import './style.css';
 
 //-- Species Context -----------------------------
