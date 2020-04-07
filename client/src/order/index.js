@@ -8,7 +8,7 @@ import { Switch, Route } from 'react-router-dom';
 import ViewActive from './active.js';
 import ViewNew from './new.js';
 import ViewEdit from './edit.js';
-import ViewSingle from './single.js';
+//import ViewSingle from './edit.js';
 import { PARAM_ID } from '../utilities/urls_params.js';
 import {
     ROUTE_ORDER_BASE,

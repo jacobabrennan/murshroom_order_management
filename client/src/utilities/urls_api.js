@@ -16,7 +16,7 @@ export const API_AUTH_LOGOUT = '/auth/logout';
 export const API_ORDER_ACTIVE = '/data/order/active';
 export const API_ORDER_NEW = '/data/order';
 export const API_ORDER_SINGLE = '/data/order';
-export function MAKEURL_API_ORDER_SIGNLE(orderId) {
+export function MAKEURL_API_ORDER_SINGLE(orderId) {
     return `${API_ORDER_SINGLE}/${orderId}`;
 }
 

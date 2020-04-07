@@ -12,7 +12,10 @@ import {
     dateToString,
     stringToDate,
 } from './utilities.js';
-import { API_SCHEDULE_WEEK } from '../utilities/urls_api.js';
+import {
+    API_SCHEDULE_WEEK,
+    MAKEURL_API_SCHEDULE_WEEK,
+} from '../utilities/urls_api.js';
 import { ROUTE_ORDER_BASE } from '../utilities/urls_routing.js';
 import './schedule.css';
 

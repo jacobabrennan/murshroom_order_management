@@ -6,7 +6,7 @@
 import React, { useRef } from 'react';
 import useGetDelayed from '../../utilities/use_get_delayed.js';
 import Loading from '../loading/index.js';
-import { MAKEURL_API_CUSTOMER_SEARCH } from '../../customer/utilities.js';
+import { MAKEURL_API_CUSTOMER_SEARCH } from '../../utilities/urls_api.js';
 import './customer_finder.css';
 
 //-- Main Component ------------------------------

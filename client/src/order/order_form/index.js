@@ -9,15 +9,15 @@ import usePost from '../../utilities/use_post.js';
 import useFeedback from '../../utilities/use_feedback.js';
 import CustomerFinder from '../../components/customer_finder/index.js';
 import Loading from '../../components/loading/index.js';
-import ProductTable from './product_table.js';
-import ProductSelector from './product_selector.js';
+import { API_ORDER_NEW } from '../../utilities/urls_api.js';
+import { ROUTE_ORDER_BASE } from '../../utilities/urls_routing.js';
 import {
-    API_ORDER_NEW,
     INVALID_NO_CUSTOMER,
     INVALID_NO_SHIPDATE,
     INVALID_NO_PRODUCTS,
-    ROUTE_ORDER_BASE,
 } from '../utilities.js';
+import ProductTable from './product_table.js';
+import ProductSelector from './product_selector.js';
 
 //-- Component definition and hook setup ---------
 export default function OrderForm(props) {
