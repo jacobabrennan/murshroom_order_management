@@ -16,6 +16,9 @@ export const ROUTE_ORDER_BASE = '/order';
 export const ROUTE_ORDER_NEW = '/order/new';
 export const ROUTE_ORDER_SINGLE = ROUTE_ORDER_BASE;
 export const ROUTE_ORDER_EDIT = `${ROUTE_ORDER_BASE}/edit`;
+export function MAKEURL_ROUTE_ORDER_EDIT(orderId) {
+    return `${ROUTE_ORDER_EDIT}/${orderId}`;
+}
 export function MAKEURL_ROUTE_ORDER_SINGLE(orderId) {
     return `${ROUTE_ORDER_SINGLE}/${orderId}`;
 }

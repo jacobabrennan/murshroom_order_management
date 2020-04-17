@@ -36,6 +36,7 @@ export default function ViewEdit() {
                 shipDate={response.data.shipDate}
                 products={response.data.products}
                 orderUrl={orderUrl}
+                orderId={id}
             />
         </React.Fragment>
     );

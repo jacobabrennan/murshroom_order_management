@@ -10,7 +10,7 @@ import useFeedback from '../../utilities/use_feedback.js';
 import CustomerFinder from '../../components/customer_finder/index.js';
 import Loading from '../../components/loading/index.js';
 import { API_ORDER_NEW } from '../../utilities/urls_api.js';
-import { ROUTE_ORDER_BASE } from '../../utilities/urls_routing.js';
+import { ROUTE_ORDER_BASE, MAKEURL_ROUTE_ORDER_SINGLE, MAKEURL_ROUTE_ORDER_EDIT } from '../../utilities/urls_routing.js';
 import {
     INVALID_NO_CUSTOMER,
     INVALID_NO_SHIPDATE,
@@ -96,7 +96,8 @@ export default function OrderForm(props) {
     
     //-- Redirect on Successful Submission -----------
     if(response.data) {
-        return (<Redirect to={ROUTE_ORDER_BASE} />);
+        const routeOrder = MAKEURL_ROUTE_ORDER_SINGLE(response.data.id);
+        return (<Redirect to={routeOrder} />);
     }
     
     //-- Initial customer selector display -----------
@@ -141,6 +142,10 @@ export default function OrderForm(props) {
     }
 
     //-- Render Component ----------------------------
+    let routeCancel = ROUTE_ORDER_BASE;
+    if(props.orderId) {
+        routeCancel = MAKEURL_ROUTE_ORDER_SINGLE(props.orderId);
+    }
     return (
         <form ref={refOrderForm} className="order-form">
             {contents}
@@ -152,7 +157,7 @@ export default function OrderForm(props) {
                     type="submit"
                     children="Submit"
                 />
-                <Link className="button danger" to={ROUTE_ORDER_BASE} children="Cancel" />
+                <Link className="button danger" to={routeCancel} children="Cancel" />
             </div>
         </form>
     );

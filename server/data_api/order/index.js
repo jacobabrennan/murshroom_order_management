@@ -40,13 +40,13 @@ router.get(URL_ORDER_SINGLE, async function (request, response, next) {
 //------------------------------------------------
 router.post(URL_ORDER_NEW, async function (request, response, next) {
     const newOrder = request.body;
-    await createOrder(newOrder);
-    response.json({})
+    const result = await createOrder(newOrder);
+    response.json(result)
 });
 
 //------------------------------------------------
 router.post(URL_ORDER_SINGLE, async function (request, response, next) {
     const orderId = parseInt(request.params[PARAM_ID]);
-    await updateOrder(orderId, request.body);
-    response.json({})
+    const result = await updateOrder(orderId, request.body);
+    response.json(result)
 });
