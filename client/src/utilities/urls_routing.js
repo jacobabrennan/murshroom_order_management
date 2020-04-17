@@ -30,8 +30,12 @@ export function MAKEURL_ROUTE_SPECIES_EDIT(speciesId) {
 
 //------------------------------------------------
 export const ROUTE_CUSTOMER_BASE = '/customer';
-export const ROUTE_CUSTOMER_NEW = '/customer/new';
-export const ROUTE_CUSTOMER_EDIT = '/customer/edit';
+export const ROUTE_CUSTOMER_SINGLE = ROUTE_CUSTOMER_BASE;
+export const ROUTE_CUSTOMER_NEW = `${ROUTE_CUSTOMER_BASE}/new`;
+export const ROUTE_CUSTOMER_EDIT = `${ROUTE_CUSTOMER_BASE}/edit`;
 export function MAKEURL_ROUTE_CUSTOMER_EDIT(customerId) {
     return `${ROUTE_CUSTOMER_EDIT}/${customerId}`;
+}
+export function MAKEURL_ROUTE_CUSTOMER_SINGLE(customerId) {
+    return `${ROUTE_CUSTOMER_SINGLE}/${customerId}`;
 }

@@ -10,8 +10,11 @@ import usePost from '../utilities/use_post.js';
 import useGet from '../utilities/use_get.js';
 import useFeedback from '../utilities/use_feedback.js';
 import { PARAM_ID } from '../utilities/urls_params.js';
-import { ROUTE_CUSTOMER_BASE } from '../utilities/urls_routing.js';
-import { MAKEURL_API_CUSTOMER_SUBMIT } from '../utilities/urls_api.js';
+import {
+    ROUTE_CUSTOMER_BASE,
+    MAKEURL_ROUTE_CUSTOMER_SINGLE,
+} from '../utilities/urls_routing.js';
+import { MAKEURL_API_CUSTOMER_SINGLE } from '../utilities/urls_api.js';
 import {
     INVALID_NO_NAME,
     INVALID_NO_LOCATION,
@@ -22,7 +25,8 @@ export default function ViewEdit() {
     const formRef = useRef();
     const history = useHistory();
     const id = useParams()[PARAM_ID];
-    const customerUrl = MAKEURL_API_CUSTOMER_SUBMIT(id);
+    const customerUrl = MAKEURL_API_CUSTOMER_SINGLE(id);
+    const customerRoute = MAKEURL_ROUTE_CUSTOMER_SINGLE(id);
     const response = useGet(customerUrl)
     const [warnings, feedback] = useFeedback();
     const [postResponse, triggerPost] = usePost(customerUrl);
@@ -49,7 +53,7 @@ export default function ViewEdit() {
         }
         //
         await triggerPost(data);
-        history.push(ROUTE_CUSTOMER_BASE);
+        history.push(customerRoute);
     }
     //
     const selection = response.data;
@@ -73,7 +77,7 @@ export default function ViewEdit() {
             {warnings}
             <div className="button-bar">
                 <button className="button" type="submit" children="Submit" />
-                <Link className="button danger" to={ROUTE_CUSTOMER_BASE} children="Cancel" />
+                <Link className="button danger" to={customerRoute} children="Cancel" />
             </div>
         </form>
     );

@@ -35,11 +35,12 @@ export function MAKEURL_API_SCHEDULE_WEEK(dateString) {
 }
 
 //------------------------------------------------
-export const API_CUSTOMER_SUBMIT = '/data/customer';
+export const API_CUSTOMER_SINGLE = '/data/customer';
+export const API_CUSTOMER_NEW = '/data/customer';
 const API_CUSTOMER_SEARCH = '/data/customer/search';
 export function MAKEURL_API_CUSTOMER_SEARCH(searchString) {
     return `${API_CUSTOMER_SEARCH}?query=${searchString}`;
 }
-export function MAKEURL_API_CUSTOMER_SUBMIT(id) {
-    return `${API_CUSTOMER_SUBMIT}/${id}`;
+export function MAKEURL_API_CUSTOMER_SINGLE(id) {
+    return `${API_CUSTOMER_SINGLE}/${id}`;
 }

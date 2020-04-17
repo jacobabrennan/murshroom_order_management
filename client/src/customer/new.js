@@ -7,7 +7,7 @@ import React, { useRef } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import usePost from '../utilities/use_post.js';
 import useFeedback from '../utilities/use_feedback.js';
-import { API_CUSTOMER_SUBMIT } from '../utilities/urls_api.js';
+import { API_CUSTOMER_NEW } from '../utilities/urls_api.js';
 import { ROUTE_CUSTOMER_BASE } from '../utilities/urls_routing.js';
 import {
     INVALID_NO_NAME,
@@ -19,7 +19,7 @@ import Loading from '../components/loading/index.js';
 export default function ViewNew() {
     const formRef = useRef();
     const history = useHistory();
-    const [response, triggerPost] = usePost(API_CUSTOMER_SUBMIT);
+    const [response, triggerPost] = usePost(API_CUSTOMER_NEW);
     const [warnings, feedback] = useFeedback();
     //
     async function submitHandler(eventSubmit) {
